@@ -40,7 +40,6 @@ const trainsView = () => {
                 justifyContent: 'center',
                 borderRadius: 15,
                 borderWidth: 0.5,
-                borderColor: 'black',
                 width: 30,
                 height: 30,
                 borderColor: trainColors[item]
