@@ -22,45 +22,21 @@ class singleTrainStation extends React.Component {
 			} else {
 				dayTimeTrains.push(x);
 			}
-			console.log(dayTimeTrains)
-			if (dayTimeTrains.length) {
+			if (dayTimeTrains.length>0) {
 				dayTimeTrains.forEach(async(element) => {
-					console.log(element)
 					try {
 						let { data } = await axios.get(`https://mta-real-time.herokuapp.com/trains/${element}/${this.props.stationId}`);
-						console.log([...this.state.northBound,...data.northBound])
 						this.setState({
 							northBound: [...this.state.northBound,...data.northBound],
 							southBound: [...this.state.southBound,...data.southBound]
 						})
-						console.log("============================================================================")
 					} catch (err) {
 						console.log(err);
 					}
 				});
-			}else if(dayTimeTrains.length === 1){
-				try {
-					let { data } = await axios.get(`https://mta-real-time.herokuapp.com/trains/${dayTimeTrains[0]}/${this.props.stationId}`);
-					this.setState({
-						northBound: data.northBound,
-						southBound: data.southBound
-					})
-				} catch (err) {
-					console.log(err);
-				}
 			}
 		} catch (err) {
 			console.log(err)
-		}
-
-		try {
-			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/trains/${this.props.train}/${this.props.stationId}`);
-			this.setState({
-				northBound: data.northBound,
-				southBound: data.southBound
-			})
-		} catch (err) {
-			console.log(err);
 		}
 	}
 
@@ -80,7 +56,7 @@ class singleTrainStation extends React.Component {
 		let display = this.state.southBound.map((train,i) => {
 			i++;
 			return (
-				<Text key={i}>{train.minutesArrival}</Text>
+				<Text key={i}>{train.routeId}{` Train - `}{train.minutesArrival}</Text>
 			)
 		})
 		return (
