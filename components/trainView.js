@@ -28,9 +28,11 @@ const trainsView = () => {
         "W": "#FCCC0A",
         "Z": "#996633"
     }
+    
     const goToSingleTrain = (train) => {
-        Actions.singleTrain({ trains: `${train}` });
+        Actions.singleTrain({trains: `${train}`, title:`${train} Train`});
     }
+
     let train = ["1", "2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M", "N", "Q", "R", "W", "J", "Z", "L", "S", "G"];
     let display = train.map(item => {
         return (

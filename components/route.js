@@ -5,6 +5,7 @@ import Landing from '../pages/home.js'
 import About from './about.js'
 import Train from './trainView'
 import Single from '../pages/singleTrain'
+import SingleTrainStation from '../pages/singleTrainStation';
 
 const Routes = () => (
       <Router>
@@ -13,6 +14,7 @@ const Routes = () => (
             <Scene key="about" component={About} title="About" />
             <Scene key="train" component={Train} title="Trains" />
             <Scene key="singleTrain" component={Single} title="Single" />
+            <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
          </ScrollView>
       </Router>
 )
