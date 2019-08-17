@@ -65,7 +65,6 @@ class singleTrainStation extends React.Component {
 	}
 
 	render() {
-		{console.log(this.state.northBound)}
 		return (
 			<ScrollView>
 				<View style={styles.container}>
