@@ -34,11 +34,11 @@ class Home extends React.Component {
                 "J": "#996633",
                 "L": "#808183",
                 "M": "#FF6319",
-                "N": "#FCCC0A",
-                "Q": "#FCCC0A",
-                "R": "#FCCC0A",
+                "N": 'rgb(217,189,17)',
+                "Q": 'rgb(217,189,17)',
+                "R": 'rgb(217,189,17)',
                 "S": "#808183",
-                "W": "#FCCC0A",
+                "W": 'rgb(217,189,17)',
                 "Z": "#996633"
             }
         }
@@ -77,7 +77,7 @@ class Home extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <TrainsView></TrainsView>
+                    <Text style = {styles.circles}>{this.props.trains}</Text>
                     {/* <Text style={styles.header}>{this.props.trains}</Text> */}
                     <View >{this.display()}</View>
                 </View>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: "center",
+        justifyContent: "space-evenly",
     },
     button: {
         padding: 5,
@@ -111,6 +111,15 @@ const styles = StyleSheet.create({
         fontSize : FONT_BACK_LABEL,
         display : 'flex',
         flexWrap : 'wrap'
+    },
+    circles: {
+        margin: 5,
+        textAlign: 'center',
+        fontSize: 60,
+        borderRadius: 30,
+        borderWidth: 1,
+        width: 60,
+        height: 60,
     }
 })
 export default Home
