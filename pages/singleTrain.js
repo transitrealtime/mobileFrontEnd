@@ -1,8 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView , PixelRatio} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import TrainsView from '../components/trainView';
+
+let FONT_BACK_LABEL   = 18;
+
+if (PixelRatio.get() <= 2) {
+  FONT_BACK_LABEL = 14;
+}
 
 class Home extends React.Component {
     constructor(props) {
@@ -10,7 +16,7 @@ class Home extends React.Component {
         this.state = {
             stations: [],
             train: "",
-            trainColors : {
+            trainColors: {
                 1: "#EE352E",
                 2: "#EE352E",
                 3: "#EE352E",
@@ -60,18 +66,8 @@ class Home extends React.Component {
     display = () => (
         this.state.stations.map(item => {
             let color2 = this.state.trainColors[this.props.trains];
-            const circle = StyleSheet.create({
-                button: {
-                    padding : 5,
-                    borderRadius: 15,
-                    margin: 2,
-                    borderWidth: 0.5,
-                    borderColor: color2
-                },
-            })
             return (
-                // <TouchableOpacity style={{ color: this.state.trainColors[this.state.train] }} to={`/train/${this.state.train}/${item.stationId}`}><Text>{item.stationName}</Text></TouchableOpacity>
-                <TouchableOpacity style={circle.button} key={item.stationId}><Text style={{color : color2}}>{item.stationName}</Text></TouchableOpacity>
+                <TouchableOpacity style={[styles.button, { borderColor: color2 }]} key={item.stationId}><Text style={[styles.stationText,{ color: color2}]}>{item.stationName}</Text></TouchableOpacity>
             )
         }
         )
@@ -79,10 +75,12 @@ class Home extends React.Component {
 
     render() {
         return (
-            <ScrollView >
-                <TrainsView></TrainsView>
-                <Text style={styles.header}>{this.props.trains}</Text>
-                <View style={styles.text}>{this.display()}</View>
+            <ScrollView>
+                <View style={styles.container}>
+                    <TrainsView></TrainsView>
+                    {/* <Text style={styles.header}>{this.props.trains}</Text> */}
+                    <View >{this.display()}</View>
+                </View>
             </ScrollView>
         )
     }
@@ -98,6 +96,21 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 150,
         textAlign: 'center'
+    },
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: "center",
+    },
+    button: {
+        padding: 5,
+        borderRadius: 15,
+        margin: 2,
+    },
+    stationText : {
+        fontSize : FONT_BACK_LABEL,
+        display : 'flex',
+        flexWrap : 'wrap'
     }
 })
 export default Home

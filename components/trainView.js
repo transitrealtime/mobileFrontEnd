@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 
 const trainsView = () => {
@@ -29,41 +29,41 @@ const trainsView = () => {
         "Z": "#996633"
     }
     const goToSingleTrain = (train) => {
-        console.log(train);
-        Actions.singleTrain({trains:`${train}`});
+        Actions.singleTrain({ trains: `${train}` });
     }
-    let train = ["7", "J", "Z", "L", "S", "G", "1", "2", "3", "4", "5", "6", "A", "C", "E", "B", "D", "F", "M", "N", "Q", "R", "W"];
+    let train = ["1", "2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M", "N", "Q", "R", "W", "J", "Z", "L", "S", "G"];
     let display = train.map(item => {
-        let circles = StyleSheet.create({
-            circles: {
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 15,
-                borderWidth: 0.5,
-                width: 30,
-                height: 30,
-                borderColor: trainColors[item]
-            }
-        })
         return (
-            <TouchableOpacity onPress={()=>goToSingleTrain(item)} style={circles.circles} key={item}><Text style={{ color: trainColors[item] }}>{item}</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => goToSingleTrain(item)} style={[style.circles, { borderColor: trainColors[item] }]} key={item}><Text style={{ color: trainColors[item], fontSize: 60 }}>{item}</Text></TouchableOpacity>
         )
     })
     return (
-        <View style={style.container}>
-            {display}
-        </View>
+        <ScrollView>
+            <View style={style.container}>
+                {display}
+            </View>
+        </ScrollView>
     )
 }
 
 let style = StyleSheet.create({
     container: {
         marginTop: 10,
-        flex: 1,
+        display : 'flex',
+        flexDirection : 'row',
         flexWrap: 'wrap',
-        flexDirection: 'row',
-        alignItems: "flex-start",
-        justifyContent: "space-around",
+        alignItems: "center",
+        alignContent : 'center',
+        justifyContent: "center",
+    },
+    circles: {
+        margin: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 30,
+        borderWidth: 1,
+        width: 60,
+        height: 60,
     }
 });
 
