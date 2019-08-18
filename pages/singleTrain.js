@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, PixelRatio } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-import TrainsView from '../components/trainView';
 
 let FONT_BACK_LABEL = 18;
 
@@ -78,7 +77,7 @@ class Home extends React.Component {
 					style={[styles.button, { borderColor: color2 }]}
 					key={item.stationId}>
 					<Text style={[styles.stationText, { color: color2 }]}>
-						{`${item.trainRoutes} - ${item.stationName}`}
+						{`${item.stationName} - ${item.trainRoutes}`}
 					</Text>
 				</TouchableOpacity>
 			)
@@ -91,6 +90,7 @@ class Home extends React.Component {
 					<View style={[styles.circles, { backgroundColor: this.state.trainColors[this.props.trains] }]}><Text style={{ fontSize: 30, color: 'white' }}>{this.props.trains}</Text></View>
 					{/* <Text style={styles.header}>{this.props.trains}</Text> */}
 					<View >{this.display()}</View>
+					<Text style = {{color : 'white', fontSize : 20}}>Easter egg :3</Text>
 				</View>
 			</ScrollView>
 		)
@@ -110,26 +110,30 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: "space-evenly",
+		flexDirection: 'column',
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	button: {
 		padding: 5,
 		borderRadius: 15,
-		margin: 2,
+		margin : 2,
+		borderWidth : .5
 	},
 	stationText: {
 		fontSize: FONT_BACK_LABEL,
 		display: 'flex',
-		flexWrap: 'wrap'
+		flexWrap: 'wrap',
+		fontSize : 20
 	},
 	circles: {
+		marginTop : 5,
+		marginBottom : 20,
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: "center",
 		alignItems: "center",
 		borderRadius: 30,
-		borderWidth: .5,
 		width: 50,
 		height: 50,
 	}
