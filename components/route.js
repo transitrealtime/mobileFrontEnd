@@ -10,7 +10,7 @@ import map from './map.js';
 const Routes = () => (
       <Router cardStyle = {{backgroundColor : 'white'}}>
          <ScrollView>
-            <Scene key="landing" component={Landing} title="Home" initial={true} />
+            <Scene type = "reset" key="landing" component={Landing} title="Home" initial={true} />
             <Scene key="train" component={Train} title="Trains" />
             <Scene key="singleTrain" component={Single} title="Single" />
             <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
