@@ -2,10 +2,10 @@ import React from 'react'
 import { Router, Scene } from 'react-native-router-flux'
 import { View } from 'react-native'
 import Landing from '../pages/home.js'
-import About from './about.js'
 import Train from './trainView'
 import Single from '../pages/singleTrain'
 import SingleTrainStation from '../pages/singleTrainStation';
+import map from './map.js';
 
 var sceneConfig = {
    cardStyle: {

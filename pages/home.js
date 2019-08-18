@@ -7,7 +7,9 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <TrainsView></TrainsView>
-            <Text style={{ textAlign: "center" }}>Made with love</Text>
+            <TouchableOpacity onPress={goToAbout}>
+            <Text style={{ textAlign: "center" , fontSize: 100}}>Made with love</Text>
+            </TouchableOpacity>
         </View>
     )
 }
