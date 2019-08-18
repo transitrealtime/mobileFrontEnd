@@ -10,6 +10,7 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			markers: [],
 			marginBottom: 1,
 			location: []
 		}
@@ -30,6 +31,26 @@ export default class App extends React.Component {
 		}catch (err){
 			console.log(err)
 		}
+		let pins = [];
+		let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
+		let i = 0;
+		Object.values(data).forEach(element => {
+			 pins.push(
+					<MapView.Marker
+						 key={i++}
+						 pinColor='#3498DB'
+						 coordinate={{
+								"latitude": element["GTFS Latitude"],
+								"longitude": element["GTFS Longitude"],
+						 }}
+						 title={element["Stop Name"]}
+						 description={`${element["Daytime Routes"]}`}
+					/>
+			 )
+		})
+		this.setState({
+			 markers: pins
+		})
 	}
 
 	onMapReady = () => this.setState({ marginBottom: 0 })
@@ -54,14 +75,7 @@ export default class App extends React.Component {
 					showsUserLocation={true}
 					showsMyLocationButton={true}
 				>
-					<MapView.Marker
-						coordinate={{
-							latitude: 40.7549,
-							longitude: -73.9840
-						}}
-						title={"home"}
-						description={"here"}
-					/>
+					{this.state.markers}
 				</MapView>
 			</View>
 		);
