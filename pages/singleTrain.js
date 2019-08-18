@@ -124,11 +124,14 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap'
 	},
 	circles: {
+        display: 'flex',
+        justifyContent: "center",
+		alignItems: "center",
 		textAlign: 'center',
 		fontSize: 30,
 		borderRadius: 30,
         borderWidth: 1,
-        lineHeight: 60,
+        // lineHeight: 60,
 		width: 60,
 		height: 60,
 	}
