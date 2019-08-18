@@ -16,8 +16,7 @@ export default App = () => {
       <Routes></Routes>
       <Footer>
         <FooterTab>
-          <Button onPress={goHome}
-          >
+          <Button onPress={goHome}>
             <Icon name="home" />
           </Button>
           <Button>
