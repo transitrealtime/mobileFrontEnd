@@ -10,17 +10,17 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <TrainsView></TrainsView>
-            <Text style={{ textAlign: "center" }}>Made with love</Text>
+            <Text style={{ textAlign: "center" }}>Made with love and coffee</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignContent: 'center',
+        flex: 1,
+        // flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
 })
 export default Home
