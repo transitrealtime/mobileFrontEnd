@@ -17,21 +17,28 @@ class singleTrainStation extends React.Component {
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${this.props.stationId}`);
 			let x = data[`Daytime Routes`]
+			console.log(x);
 			if (isNaN(x)) {
-				dayTimeTrains = x.split(' ').map(Number);
+				dayTimeTrains = x.split(' ');
 			} else {
 				dayTimeTrains.push(x);
 			}
-			if (dayTimeTrains.length>0) {
-				dayTimeTrains.forEach(async(element) => {
+			console.log(dayTimeTrains);
+			if (dayTimeTrains.length > 0) {
+				dayTimeTrains.forEach(async (element) => {
+					let found = true;
+					let data = [];
 					try {
-						let { data } = await axios.get(`https://mta-real-time.herokuapp.com/trains/${element}/${this.props.stationId}`);
+						 data = await axios.get(`https://mta-real-time.herokuapp.com/trains/${element}/${this.props.stationId}`).then(res => res.data)
+					} catch (err){
+						found = false;
+					}
+					console.log(data);
+					if (found) {
 						this.setState({
-							northBound: [...this.state.northBound,...data.northBound],
-							southBound: [...this.state.southBound,...data.southBound]
+							northBound: [...this.state.northBound, ...data.northBound],
+							southBound: [...this.state.southBound, ...data.southBound]
 						})
-					} catch (err) {
-						console.log(err);
 					}
 				});
 			}
@@ -41,24 +48,24 @@ class singleTrainStation extends React.Component {
 	}
 
 	northBoundTime = () => {
-		let display = this.state.northBound.map((train,i) => {
+		let display = this.state.northBound.length !== 0 ? this.state.northBound.map((train, i) => {
 			i++;
 			return (
 				<Text key={i}>{train.routeId}{` Train - `}{train.minutesArrival}</Text>
 			)
-		})
+		}) : <Text>{'No Trains Found'}</Text>
 		return (
 			<View><Text>NorthBound:</Text>{display}</View>
 		)
 	}
 
 	southBoundTime = () => {
-		let display = this.state.southBound.map((train,i) => {
+		let display = this.state.southBound.length !== 0 ? this.state.southBound.map((train, i) => {
 			i++;
 			return (
 				<Text key={i}>{train.routeId}{` Train - `}{train.minutesArrival}</Text>
 			)
-		})
+		}) : <Text>{'No Trains Found'}</Text>
 		return (
 			<View><Text>SouthBound:</Text>{display}</View>
 		)
