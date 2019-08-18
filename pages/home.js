@@ -5,12 +5,14 @@ import TrainsView from '../components/trainView';
 
 const Home = () => {
     const goToAbout = () => {
-        Actions.about()
+        Actions.map()
     }
     return (
         <View style={styles.container}>
             <TrainsView></TrainsView>
-            <Text style={{ textAlign: "center" }}>Made with love</Text>
+            <TouchableOpacity onPress={goToAbout}>
+            <Text style={{ textAlign: "center" , fontSize: 100}}>Made with love</Text>
+            </TouchableOpacity>
         </View>
     )
 }
