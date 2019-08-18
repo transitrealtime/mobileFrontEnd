@@ -10,6 +10,7 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
 			marginBottom: 1,
+			location: []
 		}
 	}
 	
@@ -17,7 +18,8 @@ export default class App extends React.Component {
 		try{
 			await navigator.geolocation.getCurrentPosition(
 				position => {
-					const location = JSON.stringify(position);
+					const obj = JSON.stringify(position);
+					const location = JSON.parse(obj)
 					console.log(location)
 					this.setState({ location });
 				},
@@ -28,12 +30,15 @@ export default class App extends React.Component {
 			console.log(err)
 		}
 	}
-	
+
 	onMapReady = () => this.setState({ marginBottom: 0 })
 
 	render() {
 		let data = regionFrom(40.7831, -73.9712, 10000);
-		console.log(data);
+		//console.log(data);
+		if(this.state.location.length>0){
+			console.log(this.state.location)
+		}
 		return (
 			<View style={styles.container}>
 				<MapView provider={PROVIDER_GOOGLE}
