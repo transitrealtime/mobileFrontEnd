@@ -1,20 +1,35 @@
 import React from 'react'
 import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
 import { regionFrom } from './getRegion'
+
 
 export default class App extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
          markers: [],
-         locationResult: "",
-         location: ""
+         marginBottom: 1,
+         location : []
       }
    }
    async componentDidMount() {
+      try{
+			await navigator.geolocation.getCurrentPosition(
+				position => {
+               const location = JSON.stringify(position);
+               const obj = JSON.parse(location)
+               console.log(obj);
+					this.setState({ location });
+				},
+				error => Alert.alert(error.message),
+				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+			);
+		}catch (err){
+			console.log(err)
+		}
       let pins = [];
       let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
       let i = 0;
@@ -36,42 +51,46 @@ export default class App extends React.Component {
          markers: pins
       })
    }
-
+   onMapReady = () => this.setState({ marginBottom: 0 })
+   
    render() {
-      let data = regionFrom(40.7831, -73.9712, 10000);
       return (
          <View style={styles.container}>
-            <MapView style={styles.map}
-               initialRegion={{
-                  latitude: 40.7549,
-                  longitude: -73.9840,
-                  latitudeDelta: .009,
-                  longitudeDelta: 0.009,
-               }}
-               showsUserLocation={true}
-            >
+				<MapView provider={PROVIDER_GOOGLE}
+					onMapReady={this.onMapReady}
+					style={[styles.map, { flex: 1, marginBottom: this.state.marginBottom }]}
+					initialRegion={{
+						// latitude: this.state.location ? this.state.location["coords"]["latitude"] : 40.7549,
+                  // longitude: this.state.location ? this.state.location["coords"]["longitude"] : -73.9840,
+                  latitude : 40.7549,
+                  longitude : -73.9840,
+						latitudeDelta: 0,
+						longitudeDelta: 0.08983111749910169,
+					}}
+					showsUserLocation={true}
+					showsMyLocationButton={true}
+				>
                {this.state.markers}
-            </MapView>
-         </View>
+				</MapView>
+			</View>
       );
    }
 }
-
 const styles = StyleSheet.create({
-   container: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      justifyContent: 'flex-end',
-      alignItems: 'center'
-   },
-   map: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0
-   }
+	container: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		bottom: 0,
+		right: 0,
+		justifyContent: 'flex-end',
+		alignItems: 'center'
+	},
+	map: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		bottom: 0,
+		right: 0
+	}
 });

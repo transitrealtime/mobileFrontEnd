@@ -14,7 +14,7 @@ const Routes = () => (
             <Scene key="train" component={Train} title="Trains" />
             <Scene key="singleTrain" component={Single} title="Single" />
             <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
-            <Scene key="map" component={map} title="Station" />
+            <Scene key="map" component={map} title="New York City" />
          </ScrollView>
       </Router>
 )
