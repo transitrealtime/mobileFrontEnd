@@ -88,7 +88,7 @@ class Home extends React.Component {
 		return (
 			<ScrollView>
 				<View style={styles.container}>
-					<Text style={styles.circles}>{this.props.trains}</Text>
+					<View style={[styles.circles, { backgroundColor: this.state.trainColors[this.props.trains] }]}><Text style={{ fontSize: 30, color: 'white' }}>{this.props.trains}</Text></View>
 					{/* <Text style={styles.header}>{this.props.trains}</Text> */}
 					<View >{this.display()}</View>
 				</View>
@@ -124,16 +124,14 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap'
 	},
 	circles: {
-        display: 'flex',
-        justifyContent: "center",
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: "center",
 		alignItems: "center",
-		textAlign: 'center',
-		fontSize: 30,
 		borderRadius: 30,
-        borderWidth: 1,
-        // lineHeight: 60,
-		width: 60,
-		height: 60,
+		borderWidth: .5,
+		width: 50,
+		height: 50,
 	}
 })
 export default Home
