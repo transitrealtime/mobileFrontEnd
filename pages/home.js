@@ -4,9 +4,6 @@ import { Actions } from 'react-native-router-flux';
 import TrainsView from '../components/trainView';
 
 const Home = () => {
-    const goToAbout = () => {
-        Actions.about()
-    }
     return (
         <View style={styles.container}>
             <TrainsView></TrainsView>
