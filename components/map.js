@@ -7,50 +7,65 @@ import { regionFrom } from './getRegion'
 
 
 export default class App extends React.Component {
+	_isMounted = false;
 	constructor(props) {
 		super(props);
 		this.state = {
 			markers: [],
 			marginBottom: 1,
-			location: []
+			location: [],
+			isMounted: false
 		}
 	}
-	
-	async componentDidMount(){
-		try{
+
+	async componentDidMount() {
+		this._isMounted = true;
+		try {
 			await navigator.geolocation.getCurrentPosition(
 				position => {
 					const obj = JSON.stringify(position);
 					const location = JSON.parse(obj)
 					console.log(location)
-					this.setState({ location });
+					if (this._isMounted) {
+						this.setState({ location });
+					}
 				},
 				error => Alert.alert(error.message),
 				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
 			);
-		}catch (err){
+		} catch (err) {
 			console.log(err)
 		}
 		let pins = [];
-		let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
-		let i = 0;
-		Object.values(data).forEach(element => {
-			 pins.push(
+		try {
+			let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
+			let i = 0;
+			Object.values(data).forEach(element => {
+				pins.push(
 					<MapView.Marker
-						 key={i++}
-						 pinColor='#3498DB'
-						 coordinate={{
-								"latitude": element["GTFS Latitude"],
-								"longitude": element["GTFS Longitude"],
-						 }}
-						 title={element["Stop Name"]}
-						 description={`${element["Daytime Routes"]}`}
+						key={i++}
+						pinColor='#3498DB'
+						coordinate={{
+							"latitude": element["GTFS Latitude"],
+							"longitude": element["GTFS Longitude"],
+						}}
+						title={element["Stop Name"]}
+						description={`${element["Daytime Routes"]}`}
 					/>
-			 )
-		})
-		this.setState({
-			 markers: pins
-		})
+				)
+			})
+			if (this._isMounted) {
+				this.setState({
+					markers: pins
+				})
+			}
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
 	}
 
 	onMapReady = () => this.setState({ marginBottom: 0 })
@@ -58,7 +73,7 @@ export default class App extends React.Component {
 	render() {
 		let data = regionFrom(40.7831, -73.9712, 10000);
 		//console.log(data);
-		if(this.state.location.length>0){
+		if (this.state.location.length > 0) {
 			console.log(this.state.location)
 		}
 		return (
@@ -74,6 +89,7 @@ export default class App extends React.Component {
 					}}
 					showsUserLocation={true}
 					showsMyLocationButton={true}
+					showsCompass={false}
 				>
 					{this.state.markers}
 				</MapView>
