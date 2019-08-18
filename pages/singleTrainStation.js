@@ -17,13 +17,11 @@ class singleTrainStation extends React.Component {
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${this.props.stationId}`);
 			let x = data[`Daytime Routes`]
-			console.log(x);
 			if (isNaN(x)) {
 				dayTimeTrains = x.split(' ');
 			} else {
 				dayTimeTrains.push(x);
 			}
-			console.log(dayTimeTrains);
 			if (dayTimeTrains.length > 0) {
 				dayTimeTrains.forEach(async (element) => {
 					let found = true;
@@ -33,11 +31,14 @@ class singleTrainStation extends React.Component {
 					} catch (err){
 						found = false;
 					}
-					console.log(data);
 					if (found) {
+						let north = data.northBound;
+						let south = data.southBound;
+						if (data.northBound.length > 3) north = data.northBound.slice(0,3);
+						if (data.southBound.length > 3) south = data.southBound.slice(0,3);
 						this.setState({
-							northBound: [...this.state.northBound, ...data.northBound],
-							southBound: [...this.state.southBound, ...data.southBound]
+							northBound: [...this.state.northBound, ...north],
+							southBound: [...this.state.southBound, ...south]
 						})
 					}
 				});

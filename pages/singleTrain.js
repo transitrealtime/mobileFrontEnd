@@ -78,7 +78,7 @@ class Home extends React.Component {
 					style={[styles.button, { borderColor: color2 }]}
 					key={item.stationId}>
 					<Text style={[styles.stationText, { color: color2 }]}>
-						{item.stationName}
+						{`${item.trainRoutes} - ${item.stationName}`}
 					</Text>
 				</TouchableOpacity>
 			)
