@@ -8,7 +8,7 @@ import SingleTrainStation from '../pages/singleTrainStation';
 import map from './map.js';
 
 const Routes = () => (
-      <Router>
+      <Router cardStyle = {{backgroundColor : 'white'}}>
          <ScrollView>
             <Scene key="landing" component={Landing} title="Home" initial={true} />
             <Scene key="train" component={Train} title="Trains" />
