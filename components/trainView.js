@@ -1,6 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, PixelRatio } from 'react-native';
 import { Actions } from 'react-native-router-flux'
+
+
+let FONT_BACK_LABEL = 60;
+
+if (PixelRatio.get() <= 2) {
+	FONT_BACK_LABEL = 40;
+}
 
 const trainsView = () => {
     const trainColors = {
@@ -36,7 +43,7 @@ const trainsView = () => {
     let train = ["1", "2", "3", "4", "5", "6", "7", "A", "C", "E", "B", "D", "F", "M", "N", "Q", "R", "W", "J", "Z", "L", "S", "G"];
     let display = train.map(item => {
         return (
-            <TouchableOpacity onPress={() => goToSingleTrain(item)} style={[style.circles, { borderColor: trainColors[item] }]} key={item}><Text style={{ color: trainColors[item], fontSize: 60 }}>{item}</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => goToSingleTrain(item)} style={[style.circles, { borderColor: trainColors[item] }]} key={item}><Text style={{ color: trainColors[item], fontSize: FONT_BACK_LABEL }}>{item}</Text></TouchableOpacity>
         )
     })
     return (
