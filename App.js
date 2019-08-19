@@ -11,6 +11,10 @@ export default App = () => {
     Actions.allMaps()
   }
 
+  const goTwitter = () => {
+    Actions.twitterFeed()
+  }
+
   return (
     <Container>
       <Routes></Routes>
@@ -22,7 +26,7 @@ export default App = () => {
           <Button onPress={goMap}>
             <Icon active name="map" />
           </Button>
-          <Button>
+          <Button onPress={goTwitter}>
             <Icon name="logo-twitter" />
           </Button>
         </FooterTab>
