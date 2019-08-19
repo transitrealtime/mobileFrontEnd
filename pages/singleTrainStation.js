@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 class singleTrainStation extends React.Component {
+	_isMounted = false;
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -13,6 +14,7 @@ class singleTrainStation extends React.Component {
 	}
 
 	async componentDidMount() {
+		this._isMounted = true;
 		let dayTimeTrains = [];
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${this.props.stationId}`);
@@ -36,10 +38,12 @@ class singleTrainStation extends React.Component {
 						let south = data.southBound;
 						if (data.northBound.length > 3) north = data.northBound.slice(0,3);
 						if (data.southBound.length > 3) south = data.southBound.slice(0,3);
-						this.setState({
-							northBound: [...this.state.northBound, ...north],
-							southBound: [...this.state.southBound, ...south]
-						})
+						if(this._isMounted){
+							this.setState({
+								northBound: [...this.state.northBound, ...north],
+								southBound: [...this.state.southBound, ...south]
+							})
+						}
 					}
 				});
 			}
@@ -47,6 +51,11 @@ class singleTrainStation extends React.Component {
 			console.log(err)
 		}
 	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
+
 
 	northBoundTime = () => {
 		let display = this.state.northBound.length !== 0 ? this.state.northBound.map((train, i) => {

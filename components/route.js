@@ -5,7 +5,9 @@ import Landing from '../pages/home.js'
 import Train from './trainView'
 import Single from '../pages/singleTrain'
 import SingleTrainStation from '../pages/singleTrainStation';
-import map from './map.js';
+import AllMaps from '../pages/allMaps.js';
+import PinMap from './pinMap';
+import LocationMap from './locationMap';
 
 const Routes = () => (
       <Router cardStyle = {{backgroundColor : 'white'}}>
@@ -14,7 +16,9 @@ const Routes = () => (
             <Scene key="train" component={Train} title="Trains" />
             <Scene key="singleTrain" component={Single} title="Single" />
             <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
-            <Scene key="map" component={map} title="New York City" />
+            <Scene key="allMaps" component={AllMaps} title="All Maps" />
+            <Scene key="pinMap" component={PinMap} title="All Stations" />
+            <Scene key="locationMap" component={LocationMap} title="Where Am I" />
          </ScrollView>
       </Router>
 )

@@ -8,7 +8,7 @@ export default App = () => {
     Actions.landing()
   }
   const goMap = () => {
-    Actions.map()
+    Actions.allMaps()
   }
 
   return (
@@ -17,9 +17,6 @@ export default App = () => {
       <Footer>
         <FooterTab>
           <Button onPress={goHome}>
-            <Icon name="home" />
-          </Button>
-          <Button>
             <Icon name="subway" />
           </Button>
           <Button onPress={goMap}>

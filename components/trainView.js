@@ -92,8 +92,8 @@ let style = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 30,
         borderWidth: 1,
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
     }
 });
 
