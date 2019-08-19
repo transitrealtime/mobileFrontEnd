@@ -63,27 +63,19 @@ const trainsView = () => {
             </View>
         )
     })
-    // let display = train.map(item => {
-    //     return (
-    //         <TouchableOpacity onPress={() => goToSingleTrain(item)} style={[style.circles, { borderColor: trainColors[item] }]} key={item}><Text style={{ color: trainColors[item], fontSize: FONT_BACK_LABEL }}>{item}</Text></TouchableOpacity>
-    //     )
-    // })
     return (
-        //<ScrollView>
         <View style={style.container}>
             {display}
         </View>
-        //</ScrollView>
     )
 }
 
 let style = StyleSheet.create({
     container: {
-        marginTop: 10,
+        marginTop: 50,
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'wrap',
-        // alignContent : 'center',
         justifyContent: "center",
     },
     circles: {

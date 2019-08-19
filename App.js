@@ -12,7 +12,7 @@ export default App = () => {
   }
 
   return (
-    <Container>
+    <Container style = {{display : 'flex',flexDirection : 'column', justifyContent: 'center',alignContent:'center'}}>
       <Routes></Routes>
       <Footer>
         <FooterTab>

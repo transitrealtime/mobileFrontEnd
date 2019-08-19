@@ -10,7 +10,32 @@ class singleTrainStation extends React.Component {
 		super(props)
 		this.state = {
 			northBound: [],
-			southBound: []
+			southBound: [],
+			trainColors: {
+				1: "#EE352E",
+				2: "#EE352E",
+				3: "#EE352E",
+				4: "#00933C",
+				5: "#00933C",
+				6: "#00933C",
+				7: "#B933AD",
+				"A": "#0039A6",
+				"B": "#FF6319",
+				"C": "#0039A6",
+				"D": "#FF6319",
+				"E": "#0039A6",
+				"F": "#FF6319",
+				"G": "#6CBE45",
+				"J": "#996633",
+				"L": "#808183",
+				"M": "#FF6319",
+				"N": "#FCCC0A",
+				"Q": "#FCCC0A",
+				"R": "#FCCC0A",
+				"S": "#808183",
+				"W": "#FCCC0A",
+				"Z": "#996633"
+			}
 		}
 	}
 
@@ -26,7 +51,9 @@ class singleTrainStation extends React.Component {
 				dayTimeTrains.push(x);
 			}
 			if (dayTimeTrains.length > 0) {
-				dayTimeTrains.forEach(async (element) => {
+				let northBound = [];
+				let southBound = [];
+				for (let element of dayTimeTrains) {
 					let found = true;
 					let data = [];
 					try {
@@ -39,14 +66,17 @@ class singleTrainStation extends React.Component {
 						let south = data.southBound;
 						if (data.northBound.length > 3) north = data.northBound.slice(0, 3);
 						if (data.southBound.length > 3) south = data.southBound.slice(0, 3);
-						if (this._isMounted) {
-							this.setState({
-								northBound: [...this.state.northBound, ...north],
-								southBound: [...this.state.southBound, ...south]
-							})
-						}
+						northBound.push(north);
+						southBound.push(south);
+
 					}
-				});
+				}
+				if (this._isMounted) {
+					this.setState({
+						northBound,
+						southBound
+					})
+				}
 			}
 		} catch (err) {
 			console.log(err)
@@ -58,39 +88,56 @@ class singleTrainStation extends React.Component {
 	}
 
 
-	northBoundTime = () => {
-		let display = this.state.northBound.length !== 0 ? this.state.northBound.map((train, i) => {
+	allBoundTime = () => {
+		let sideIndex = -1;
+		let AllTrains = [this.state.northBound, this.state.southBound].map((side) => {
+			let display = side.length !== 0 ? side.map((train, i) => {
+				let arrivalFirst = "";
+				let arrivalRest = "";
+				for (let i = 0; i < train.length; i++) {
+					if (i === 0) arrivalFirst = train[i].minutesArrival;
+					else {
+						arrivalRest += train[i].minutesArrival + ' , ';
+					}
+				}
+				if (train.length !== 0) {
+					return (
+						<View key={i}>
+							<CardItem header bordered style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+								<View style={[styles.circles, { backgroundColor: this.state.trainColors[train[0]["routeId"]] }]}>
+									<Text style={{ fontSize: 30, color: 'white', fontWeight: "bold" }}>
+										{train[0]["routeId"]}
+									</Text>
+								</View>
+								<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+									<Text style={{ fontSize: 20 }}>
+										{`Arriving in ${arrivalFirst}`}
+									</Text>
+									<Text>
+										{arrivalRest.substring(0, arrivalRest.length - 2)}
+									</Text>
+								</View>
+							</CardItem>
+						</View>
+					)
+				}
+			}) : <CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem>
 			return (
-				<CardItem bordered key={i}><Text style={{fontSize:20}}>{train.routeId}{` Train - `}{train.minutesArrival}</Text></CardItem>
+				<View key = {sideIndex++}>
+					<Card><CardItem header style={{ flex: 1, justifyContent: 'center' }}><Text style={{ fontSize: 20 }}>{sideIndex === 0 ?'North Bound' : 'South Bound'} </Text></CardItem></Card>
+					<Card>{display}</Card>
+				</View>
 			)
-		}) : <CardItem><Text style={{fontSize:20}}>{'No Trains Found :('}</Text></CardItem>
-		return (
-			<Card style={{ alignSelf: 'stretch' }}>
-				<CardItem header><Text style={{fontSize:20}}>NorthBound - </Text></CardItem>
-				{display}
-			</Card>
-		)
-	}
-
-	southBoundTime = () => {
-		let display = this.state.southBound.length !== 0 ? this.state.southBound.map((train, i) => {
-			return (
-				<CardItem bordered key={i}><Text style={{fontSize:20}}>{train.routeId}{` Train - `}{train.minutesArrival}</Text></CardItem>
-			)
-		}) : <CardItem><Text style={{fontSize:20}}>{'No Trains Found :('}</Text></CardItem>
-		return (
-			<Card style={{ alignSelf: 'stretch' }}>
-				<CardItem header><Text style={{fontSize:20}}>SouthBound - </Text></CardItem>
-				{display}
-			</Card>
-		)
+		})
+		return <View>
+			{AllTrains}
+		</View>
 	}
 
 	render() {
 		return (
 			<ScrollView>
-				{this.northBoundTime()}
-				{this.southBoundTime()}
+				{this.allBoundTime()}
 			</ScrollView>
 		)
 	}
@@ -102,6 +149,15 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center'
 	},
+	circles: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: "center",
+		alignItems: "center",
+		borderRadius: 30,
+		width: 50,
+		height: 50,
+	}
 })
 
 export default singleTrainStation
