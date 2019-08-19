@@ -14,6 +14,7 @@ export default class App extends React.Component {
 			marginBottom: 1,
 			location: [],
 			distance: [],
+			initialRegion:[],
 		}
 	}
 
@@ -27,6 +28,18 @@ export default class App extends React.Component {
 					try {
 						let { data } = await axios.get('https://mta-real-time.herokuapp.com/stations');
 						const currLoc = [location[`coords`][`latitude`], location[`coords`][`longitude`]];
+						let region = {
+							latitude: location[`coords`][`latitude`],
+							longitude: location[`coords`][`longitude`],
+							latitudeDelta: 0.01,
+							longitudeDelta: 0.01
+						}
+						this.mapView.animateToRegion(region,1000);
+						if(this._isMounted){
+							this.setState({
+								initialRegion:region
+							})
+						}
 						let distance = [];
 						for (let stations in data) {
 							distance.push({
@@ -114,8 +127,8 @@ export default class App extends React.Component {
 	onMapReady = () => this.setState({ marginBottom: 0 })
 
 	render() {
-		if (this.state.distance.length > 0) {
-			//    console.log(this.state.distance)
+		if (this.state.initialRegion.length > 0) {
+			console.log(initialRegion)
 		}
 		return (
 			<View style={styles.container}>
@@ -131,7 +144,8 @@ export default class App extends React.Component {
 					showsUserLocation={true}
 					showsMyLocationButton={true}
 					showsCompass={false}
-				>
+					loadingEnabled={true}
+					ref={ref => { this.mapView = ref }}>
 					{this.state.distance}
 				</MapView>
 			</View>
