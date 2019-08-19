@@ -8,6 +8,7 @@ import SingleTrainStation from '../pages/singleTrainStation';
 import AllMaps from '../pages/allMaps.js';
 import PinMap from './pinMap';
 import LocationMap from './locationMap';
+import TwitterFeed from './twitterFeed';
 
 const Routes = () => (
       <Router cardStyle = {{backgroundColor : 'white'}}>
@@ -19,6 +20,7 @@ const Routes = () => (
             <Scene key="allMaps" component={AllMaps} title="All Maps" />
             <Scene key="pinMap" component={PinMap} title="All Stations" />
             <Scene key="locationMap" component={LocationMap} title="Where Am I" />
+            <Scene key = "twitterFeed" component={TwitterFeed} title="@NYCT Subway"/>
          </ScrollView>
       </Router>
 )
