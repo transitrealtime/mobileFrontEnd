@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, PixelRatio } from 'react-native';
+import { Card, CardItem, Right, Icon } from 'native-base'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
@@ -29,16 +30,16 @@ class singleTrainStation extends React.Component {
 					let found = true;
 					let data = [];
 					try {
-						 data = await axios.get(`https://mta-real-time.herokuapp.com/trains/${element}/${this.props.stationId}`).then(res => res.data)
-					} catch (err){
+						data = await axios.get(`https://mta-real-time.herokuapp.com/trains/${element}/${this.props.stationId}`).then(res => res.data)
+					} catch (err) {
 						found = false;
 					}
 					if (found) {
 						let north = data.northBound;
 						let south = data.southBound;
-						if (data.northBound.length > 3) north = data.northBound.slice(0,3);
-						if (data.southBound.length > 3) south = data.southBound.slice(0,3);
-						if(this._isMounted){
+						if (data.northBound.length > 3) north = data.northBound.slice(0, 3);
+						if (data.southBound.length > 3) south = data.southBound.slice(0, 3);
+						if (this._isMounted) {
 							this.setState({
 								northBound: [...this.state.northBound, ...north],
 								southBound: [...this.state.southBound, ...south]
@@ -59,35 +60,37 @@ class singleTrainStation extends React.Component {
 
 	northBoundTime = () => {
 		let display = this.state.northBound.length !== 0 ? this.state.northBound.map((train, i) => {
-			i++;
 			return (
-				<Text key={i}>{train.routeId}{` Train - `}{train.minutesArrival}</Text>
+				<CardItem bordered key={i}><Text style={{fontSize:20}}>{train.routeId}{` Train - `}{train.minutesArrival}</Text></CardItem>
 			)
-		}) : <Text>{'No Trains Found'}</Text>
+		}) : <CardItem><Text style={{fontSize:20}}>{'No Trains Found :('}</Text></CardItem>
 		return (
-			<View><Text>NorthBound:</Text>{display}</View>
+			<Card style={{ alignSelf: 'stretch' }}>
+				<CardItem header><Text style={{fontSize:20}}>NorthBound - </Text></CardItem>
+				{display}
+			</Card>
 		)
 	}
 
 	southBoundTime = () => {
 		let display = this.state.southBound.length !== 0 ? this.state.southBound.map((train, i) => {
-			i++;
 			return (
-				<Text key={i}>{train.routeId}{` Train - `}{train.minutesArrival}</Text>
+				<CardItem bordered key={i}><Text style={{fontSize:20}}>{train.routeId}{` Train - `}{train.minutesArrival}</Text></CardItem>
 			)
-		}) : <Text>{'No Trains Found'}</Text>
+		}) : <CardItem><Text style={{fontSize:20}}>{'No Trains Found :('}</Text></CardItem>
 		return (
-			<View><Text>SouthBound:</Text>{display}</View>
+			<Card style={{ alignSelf: 'stretch' }}>
+				<CardItem header><Text style={{fontSize:20}}>SouthBound - </Text></CardItem>
+				{display}
+			</Card>
 		)
 	}
 
 	render() {
 		return (
 			<ScrollView>
-				<View style={styles.container}>
-					<View>{this.northBoundTime()}</View>
-					<View>{this.southBoundTime()}</View>
-				</View>
+				{this.northBoundTime()}
+				{this.southBoundTime()}
 			</ScrollView>
 		)
 	}
