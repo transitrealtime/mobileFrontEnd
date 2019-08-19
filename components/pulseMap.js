@@ -28,7 +28,7 @@ export default class Pulse extends React.Component {
 							pinColor='#3498DB'
 							coordinate={{
 								"latitude": station[`latitude`],
-								"longitude": station[`Longitude`],
+								"longitude": station[`longitude`],
 							}}
 							title={station["stopName"]}
 							description={`${station[`train`]}`}>
