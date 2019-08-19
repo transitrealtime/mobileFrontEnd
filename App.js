@@ -8,7 +8,7 @@ export default App = () => {
     Actions.landing()
   }
   const goMap = () => {
-    Actions.map()
+    Actions.allMaps()
   }
 
   return (
