@@ -14,6 +14,9 @@ const allMaps = () => {
 	const goToLocationMap = () => {
 		Actions.locationMap()
 	}
+	const goToPulseMap = () => {
+		Actions.pulseMap()
+	}
 	return (
 		<Container style={styles.container}>
 			<View style={styles.view}>
@@ -23,7 +26,7 @@ const allMaps = () => {
 				<Text style={{marginLeft:10}}>All Station</Text>
 			</View>
 			<View style={styles.view}>
-				<Button>
+				<Button onPress={goToPulseMap}>
 					<Ionicons style={{ fontSize: 20, color: 'white',width : 40, textAlign : 'center'}} name="md-pulse" />
 				</Button>
 				<Text style={{marginLeft:10}}>NYC Pulse</Text>

@@ -3,8 +3,6 @@ import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-nati
 import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
-import { regionFrom } from './getRegion'
-
 
 export default class App extends React.Component {
 	_isMounted = false;
