@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, PixelRatio } from 'react-native';
+import { Card, CardItem, Right, Icon } from 'native-base'
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
@@ -62,7 +63,7 @@ class Home extends React.Component {
 		this._isMounted = true;
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/trains/${this.props.trains}`);
-			if(this._isMounted){
+			if (this._isMounted) {
 				this.setState({
 					stations: data,
 					train: this.props.trains
@@ -72,23 +73,28 @@ class Home extends React.Component {
 			console.log(err)
 		}
 	}
-	
+
 	componentWillUnmount() {
 		this._isMounted = false;
 	}
 
 	display = () => (
-		this.state.stations.map(item => {
+		this.state.stations.map((item, i) => {
 			let color2 = this.state.trainColors[this.props.trains];
 			return (
-				<TouchableOpacity
+				<CardItem
+					key={i}
+					bordered button
 					onPress={() => this.goToSingleStation(this.props.trains, item.stationId)}
-					style={[styles.button, { borderColor: color2 }]}
-					key={item.stationId}>
+					style = {{display :'flex',flexDirection: 'row', justifyContent: 'space-between'}}
+				>
 					<Text style={[styles.stationText, { color: color2 }]}>
-						{`${item.stationName} - ${item.trainRoutes}`}
+						{`${item.stationName}`}
 					</Text>
-				</TouchableOpacity>
+					<Right>
+						<Icon name="arrow-forward" />
+					</Right>
+				</CardItem>
 			)
 		})
 	)
@@ -97,9 +103,8 @@ class Home extends React.Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={[styles.circles, { backgroundColor: this.state.trainColors[this.props.trains] }]}><Text style={{ fontSize: 30, color: 'white' }}>{this.props.trains}</Text></View>
-					{/* <Text style={styles.header}>{this.props.trains}</Text> */}
-					<View >{this.display()}</View>
-					<Text style = {{color : 'white', fontSize : 20}}>Easter egg :3</Text>
+					<Card style = {{ alignSelf: 'stretch'}}>{this.display()}</Card>
+					{/* <Text style={{ color: 'white', fontSize: 20 }}>Easter egg :3</Text> */}
 				</View>
 			</ScrollView>
 		)
@@ -120,24 +125,15 @@ const styles = StyleSheet.create({
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
-		justifyContent: "center",
 		alignItems: "center",
-	},
-	button: {
-		padding: 5,
-		borderRadius: 15,
-		margin : 2,
-		borderWidth : .5
+		justifyContent: "center",
 	},
 	stationText: {
 		fontSize: FONT_BACK_LABEL,
-		display: 'flex',
-		flexWrap: 'wrap',
-		fontSize : 20
 	},
 	circles: {
-		marginTop : 5,
-		marginBottom : 20,
+		marginTop: 5,
+		marginBottom: 10,
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: "center",
