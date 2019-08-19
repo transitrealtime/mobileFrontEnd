@@ -11,9 +11,9 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			markers: [],
 			marginBottom: 1,
-			location: []
+			location: [],
+			distance: [],
 		}
 	}
 
@@ -21,12 +21,42 @@ export default class App extends React.Component {
 		this._isMounted = true;
 		try {
 			await navigator.geolocation.getCurrentPosition(
-				position => {
+				async position => {
 					const obj = JSON.stringify(position);
 					const location = JSON.parse(obj)
-					console.log(location)
-					if (this._isMounted) {
-						this.setState({ location });
+					try {
+						let { data } = await axios.get('https://mta-real-time.herokuapp.com/stations');
+						const currLoc = [location[`coords`][`latitude`], location[`coords`][`longitude`]];
+						let distance = [];
+						for (let stations in data) {
+							distance.push({
+								station: data[stations],
+								distance: this.haversine(currLoc, [data[stations]["GTFS Latitude"], data[stations]["GTFS Longitude"]])
+							})
+						}
+						let nearBy = []
+						let i = 0;
+						distance.sort(function (a, b) { return a.distance - b.distance; }).slice(0, 5).forEach(element => {
+							nearBy.push(
+								<MapView.Marker
+									key={i++}
+									pinColor='#3498DB'
+									coordinate={{
+										"latitude": element[`station`]["GTFS Latitude"],
+										"longitude": element[`station`]["GTFS Longitude"],
+									}}
+									title={element[`station`]["Stop Name"]}
+									description={`${element[`station`]["Daytime Routes"]}`}
+								/>
+							)
+						});
+						if (this._isMounted) {
+							this.setState({
+								distance: nearBy
+							})
+						}
+					} catch (err) {
+						console.log(err)
 					}
 				},
 				error => Alert.alert(error.message),
@@ -35,33 +65,29 @@ export default class App extends React.Component {
 		} catch (err) {
 			console.log(err)
 		}
-		let pins = [];
-		try {
-			let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
-			let i = 0;
-			Object.values(data).forEach(element => {
-				pins.push(
-					<MapView.Marker
-						key={i++}
-						pinColor='#3498DB'
-						coordinate={{
-							"latitude": element["GTFS Latitude"],
-							"longitude": element["GTFS Longitude"],
-						}}
-						title={element["Stop Name"]}
-						description={`${element["Daytime Routes"]}`}
-					/>
-				)
-			})
-			if (this._isMounted) {
-				this.setState({
-					markers: pins
-				})
-			}
-		} catch (err) {
-			console.log(err)
-		}
 	}
+
+	haversine = ([lat1, lon1], [lat2, lon2]) => {
+		const [pi, asin, sin, cos, sqrt, pow, round] = [
+			'PI', 'asin', 'sin', 'cos', 'sqrt', 'pow', 'round'
+		]
+			.map(k => Math[k]),
+			[rlat1, rlat2, rlon1, rlon2] = [lat1, lat2, lon1, lon2]
+				.map(x => x / 180 * pi),
+
+			dLat = rlat2 - rlat1,
+			dLon = rlon2 - rlon1,
+			radius = 6372.8;
+		return round(
+			radius * 2 * asin(
+				sqrt(
+					pow(sin(dLat / 2), 2) +
+					pow(sin(dLon / 2), 2) *
+					cos(rlat1) * cos(rlat2)
+				)
+			) * 100
+		) / 100;
+	};
 
 	componentWillUnmount() {
 		this._isMounted = false;
@@ -70,10 +96,8 @@ export default class App extends React.Component {
 	onMapReady = () => this.setState({ marginBottom: 0 })
 
 	render() {
-		let data = regionFrom(40.7831, -73.9712, 10000);
-		//console.log(data);
-		if (this.state.location.length > 0) {
-			console.log(this.state.location)
+		if (this.state.distance.length > 0) {
+			//    console.log(this.state.distance)
 		}
 		return (
 			<View style={styles.container}>
@@ -90,7 +114,7 @@ export default class App extends React.Component {
 					showsMyLocationButton={true}
 					showsCompass={false}
 				>
-					{this.state.markers}
+					{this.state.distance}
 				</MapView>
 			</View>
 		);

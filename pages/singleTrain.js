@@ -10,6 +10,7 @@ if (PixelRatio.get() <= 2) {
 }
 
 class Home extends React.Component {
+	_isMounted = false;
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -58,16 +59,24 @@ class Home extends React.Component {
 	}
 
 	async componentDidMount() {
+		this._isMounted = true;
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/trains/${this.props.trains}`);
-			this.setState({
-				stations: data,
-				train: this.props.trains
-			})
+			if(this._isMounted){
+				this.setState({
+					stations: data,
+					train: this.props.trains
+				})
+			}
 		} catch (err) {
 			console.log(err)
 		}
 	}
+	
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
+
 	display = () => (
 		this.state.stations.map(item => {
 			let color2 = this.state.trainColors[this.props.trains];
