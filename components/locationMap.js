@@ -31,6 +31,7 @@ export default class App extends React.Component {
 						for (let stations in data) {
 							distance.push({
 								station: data[stations],
+								stationId: stations,
 								distance: this.haversine(currLoc, [data[stations]["GTFS Latitude"], data[stations]["GTFS Longitude"]])
 							})
 						}
@@ -46,8 +47,11 @@ export default class App extends React.Component {
 										"longitude": element[`station`]["GTFS Longitude"],
 									}}
 									title={element[`station`]["Stop Name"]}
-									description={`${element[`station`]["Daytime Routes"]}`}
-								/>
+									description={`${element[`station`]["Daytime Routes"]}`}>
+									<MapView.Callout onPress={() => this.goToSingleStation(element[`stationId`])}>
+										<Text>{element[`station`]["Stop Name"]}{"\n"}{`${element[`station`]["Daytime Routes"]}`}</Text>
+									</MapView.Callout>
+								</MapView.Marker>
 							)
 						});
 						if (this._isMounted) {
@@ -62,6 +66,20 @@ export default class App extends React.Component {
 				error => Alert.alert(error.message),
 				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
 			);
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
+	goToSingleStation = async (stationId) => {
+		let stationName = await this.getStationName(stationId);
+		Actions.singleTrainStation({stationId: `${stationId}`, title: `${stationName}` })
+	}
+
+	getStationName = async (stationId) => {
+		try {
+			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${stationId}`);
+			return data[`Stop Name`]
 		} catch (err) {
 			console.log(err)
 		}
