@@ -17,31 +17,7 @@ class Home extends React.Component {
 		this.state = {
 			stations: [],
 			train: "",
-			trainColors: {
-				1: "#EE352E",
-				2: "#EE352E",
-				3: "#EE352E",
-				4: "#00933C",
-				5: "#00933C",
-				6: "#00933C",
-				7: "#B933AD",
-				"A": "#0039A6",
-				"B": "#FF6319",
-				"C": "#0039A6",
-				"D": "#FF6319",
-				"E": "#0039A6",
-				"F": "#FF6319",
-				"G": "#6CBE45",
-				"J": "#996633",
-				"L": "#808183",
-				"M": "#FF6319",
-				"N": 'rgb(217,189,17)',
-				"Q": 'rgb(217,189,17)',
-				"R": 'rgb(217,189,17)',
-				"S": "#808183",
-				"W": 'rgb(217,189,17)',
-				"Z": "#996633"
-			}
+			trainColors: require('../components/trainColors')
 		}
 	}
 
