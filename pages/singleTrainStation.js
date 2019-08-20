@@ -1,7 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View,ScrollView, RefreshControl } from 'react-native';
-import { Card, CardItem} from 'native-base'
+import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
+import { Card, CardItem, Header, Container, Title, Icon, Body, Right, Left } from 'native-base'
 import axios from 'axios';
+import trainColors from '../components/trainColors'
+
 
 class singleTrainStation extends React.Component {
 	_isMounted = false;
@@ -10,36 +12,12 @@ class singleTrainStation extends React.Component {
 		this.state = {
 			northBound: [],
 			southBound: [],
-			trainColors: {
-				1: "#EE352E",
-				2: "#EE352E",
-				3: "#EE352E",
-				4: "#00933C",
-				5: "#00933C",
-				6: "#00933C",
-				7: "#B933AD",
-				"A": "#0039A6",
-				"B": "#FF6319",
-				"C": "#0039A6",
-				"D": "#FF6319",
-				"E": "#0039A6",
-				"F": "#FF6319",
-				"G": "#6CBE45",
-				"J": "#996633",
-				"L": "#808183",
-				"M": "#FF6319",
-				"N": "#FCCC0A",
-				"Q": "#FCCC0A",
-				"R": "#FCCC0A",
-				"S": "#808183",
-				"W": "#FCCC0A",
-				"Z": "#996633",
-				refreshing: false,
-			}
+			refreshing: false,
+			heart: "ios-heart-empty",
 		}
 	}
-	
-	fetchTrainTimes = async () =>{
+
+	fetchTrainTimes = async () => {
 		let dayTimeTrains = [];
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${this.props.stationId}`);
@@ -82,15 +60,16 @@ class singleTrainStation extends React.Component {
 		}
 	}
 	_onRefresh = () => {
-        this.setState({ refreshing: true });
-        this.fetchTrainTimes().then(() => {
-            this.setState({ refreshing: false });
-        });
+		this.setState({ refreshing: true });
+		this.fetchTrainTimes().then(() => {
+			this.setState({ refreshing: false });
+		});
 	}
 
 	async componentDidMount() {
 		this._isMounted = true;
 		this.fetchTrainTimes();
+		this.isFavorite();
 	}
 
 	componentWillUnmount() {
@@ -116,7 +95,7 @@ class singleTrainStation extends React.Component {
 					return (
 						<View key={i}>
 							<CardItem header bordered style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-								<View style={[styles.circles, { backgroundColor: this.state.trainColors[train[0]["routeId"]] }]}>
+								<View style={[styles.circles, { backgroundColor: trainColors[train[0]["routeId"]] }]}>
 									<Text style={{ fontSize: 30, color: 'white', fontWeight: "bold" }}>
 										{train[0]["routeId"]}
 									</Text>
@@ -135,8 +114,8 @@ class singleTrainStation extends React.Component {
 				}
 			}) : <CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem>
 			return (
-				<View key = {sideIndex++}>
-					<Card><CardItem header style={{ flex: 1, justifyContent: 'center' }}><Text style={{ fontSize: 20 }}>{sideIndex === 0 ?'North Bound' : 'South Bound'} </Text></CardItem></Card>
+				<View key={sideIndex++}>
+					<Card><CardItem header style={{ flex: 1, justifyContent: 'center' }}><Text style={{ fontSize: 20 }}>{sideIndex === 0 ? 'Uptown' : 'Downtown'} </Text></CardItem></Card>
 					{empty ? <Card><CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem></Card> : <Card>{display}</Card>}
 				</View>
 			)
@@ -146,16 +125,59 @@ class singleTrainStation extends React.Component {
 		</View>
 	}
 
+	isFavorite = async () => {
+		try {
+			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
+			if (data.includes(this.props.title)) {
+				this.setState({
+					heart: 'ios-heart'
+				})
+			}
+			console.log(this.state.heart);
+		}
+		catch (err) {
+			console.log(err);
+		}
+	}
+	fetchFavoriteTrains = async () => {
+		try {
+			if (this.state.heart === "ios-heart-empty") {
+				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
+			}else{
+				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`,)
+			}
+			this.setState({
+				heart: this.state.heart === "ios-heart-empty" ? "ios-heart" : "ios-heart-empty"
+			})
+			console.log(Expo.Constants.installationId);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	render() {
 		return (
-			<ScrollView refreshControl={
-                <RefreshControl
-                    refreshing={this.state.refreshing}
-                    onRefresh={this._onRefresh}
-                />
-			}>
-				{this.allBoundTime()}
-			</ScrollView>
+			<Container>
+				<Header style={{ backgroundColor: 'white' }}>
+					<Left></Left>
+					<Body style={{ flex: 3 }}><Text style={{ fontWeight: "500" }}>{this.props.title}</Text></Body>
+					<Right>
+						<Icon
+							name={this.state.heart}
+							style={this.state.heart === "ios-heart-empty" ? {} : { color: 'red' }}
+							onPress={() => this.fetchFavoriteTrains()}>
+						</Icon>
+					</Right>
+				</Header>
+				<ScrollView refreshControl={
+					<RefreshControl
+						refreshing={this.state.refreshing}
+						onRefresh={this._onRefresh}
+					/>
+				}>
+					{this.allBoundTime()}
+				</ScrollView>
+			</Container>
 		)
 	}
 }
