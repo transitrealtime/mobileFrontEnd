@@ -1,7 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, PixelRatio } from 'react-native';
-import { Card, CardItem, Right, Icon } from 'native-base'
-import { Actions } from 'react-native-router-flux';
+import { StyleSheet, Text, View,ScrollView, RefreshControl } from 'react-native';
+import { Card, CardItem} from 'native-base'
 import axios from 'axios';
 
 class singleTrainStation extends React.Component {
@@ -34,13 +33,13 @@ class singleTrainStation extends React.Component {
 				"R": "#FCCC0A",
 				"S": "#808183",
 				"W": "#FCCC0A",
-				"Z": "#996633"
+				"Z": "#996633",
+				refreshing: false,
 			}
 		}
 	}
-
-	async componentDidMount() {
-		this._isMounted = true;
+	
+	fetchTrainTimes = async () =>{
 		let dayTimeTrains = [];
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${this.props.stationId}`);
@@ -82,6 +81,17 @@ class singleTrainStation extends React.Component {
 			console.log(err)
 		}
 	}
+	_onRefresh = () => {
+        this.setState({ refreshing: true });
+        this.fetchTrainTimes().then(() => {
+            this.setState({ refreshing: false });
+        });
+	}
+
+	async componentDidMount() {
+		this._isMounted = true;
+		this.fetchTrainTimes();
+	}
 
 	componentWillUnmount() {
 		this._isMounted = false;
@@ -90,8 +100,10 @@ class singleTrainStation extends React.Component {
 
 	allBoundTime = () => {
 		let sideIndex = -1;
+		let empty = true;
 		let AllTrains = [this.state.northBound, this.state.southBound].map((side) => {
 			let display = side.length !== 0 ? side.map((train, i) => {
+				empty = false;
 				let arrivalFirst = "";
 				let arrivalRest = "";
 				for (let i = 0; i < train.length; i++) {
@@ -111,7 +123,7 @@ class singleTrainStation extends React.Component {
 								</View>
 								<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
 									<Text style={{ fontSize: 20 }}>
-										{`Arriving in ${arrivalFirst}`}
+										{arrivalFirst == 'Arriving Now' ? `${arrivalFirst}` : `Arriving in ${arrivalFirst}`}
 									</Text>
 									<Text>
 										{arrivalRest.substring(0, arrivalRest.length - 2)}
@@ -125,7 +137,7 @@ class singleTrainStation extends React.Component {
 			return (
 				<View key = {sideIndex++}>
 					<Card><CardItem header style={{ flex: 1, justifyContent: 'center' }}><Text style={{ fontSize: 20 }}>{sideIndex === 0 ?'North Bound' : 'South Bound'} </Text></CardItem></Card>
-					<Card>{display}</Card>
+					{empty ? <Card><CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem></Card> : <Card>{display}</Card>}
 				</View>
 			)
 		})
@@ -136,7 +148,12 @@ class singleTrainStation extends React.Component {
 
 	render() {
 		return (
-			<ScrollView>
+			<ScrollView refreshControl={
+                <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this._onRefresh}
+                />
+			}>
 				{this.allBoundTime()}
 			</ScrollView>
 		)

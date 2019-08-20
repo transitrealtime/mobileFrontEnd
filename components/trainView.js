@@ -44,11 +44,9 @@ const trainsView = () => {
     let blueTrains = ["A", "C", "E"];
     let orangeTrains = ["B", "D", "F", "M"];
     let yellowTrains = ["N", "Q", "R", "W"];
-    let grayTrains = ["L","S"];
-    let brownTrains = ["J", "Z"];
-    let purpleTrains = ["7","G"];
-    //let lightGreenTrains = ["G"];
-    let allTrains = [redTrains, greenTrains, blueTrains, orangeTrains, yellowTrains, grayTrains, brownTrains, purpleTrains];
+    let grayTrains = ["L","S","7"];
+    let brownTrains = ["J", "Z","G"];
+    let allTrains = [redTrains, greenTrains, blueTrains, orangeTrains, yellowTrains, grayTrains, brownTrains];
     //let train = ["1", "2", "3", "4", "5", "6", "A", "C", "E", "B", "D", "F", "M", "N", "Q", "R", "W", "L" ,"J","Z", "S", "G","7"];
     let x = 0;
     let display = allTrains.map(trains => {
@@ -72,7 +70,6 @@ const trainsView = () => {
 
 let style = StyleSheet.create({
     container: {
-        marginTop: 50,
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'wrap',
