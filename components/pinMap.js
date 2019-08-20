@@ -3,8 +3,8 @@ import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-nati
 import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
-import { regionFrom } from './getRegion'
 
+const trainColors = require('./trainColors')
 
 export default class App extends React.Component {
 	_isMounted = false;
@@ -13,45 +13,31 @@ export default class App extends React.Component {
 		this.state = {
 			markers: [],
 			marginBottom: 1,
-			location: [],
-			isMounted: false
 		}
 	}
 
 	async componentDidMount() {
 		this._isMounted = true;
-		try {
-			await navigator.geolocation.getCurrentPosition(
-				position => {
-					const obj = JSON.stringify(position);
-					const location = JSON.parse(obj)
-					console.log(location)
-					if (this._isMounted) {
-						this.setState({ location });
-					}
-				},
-				error => Alert.alert(error.message),
-				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-			);
-		} catch (err) {
-			console.log(err)
-		}
 		let pins = [];
 		try {
 			let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
 			let i = 0;
-			Object.values(data).forEach(element => {
+			Object.entries(data).forEach(element => {
+				color = trainColors[element[1]["Daytime Routes"].toString()[0]];
 				pins.push(
 					<MapView.Marker
 						key={i++}
-						pinColor='#3498DB'
+						pinColor={color}
 						coordinate={{
-							"latitude": element["GTFS Latitude"],
-							"longitude": element["GTFS Longitude"],
+							"latitude": element[1]["GTFS Latitude"],
+							"longitude": element[1]["GTFS Longitude"],
 						}}
-						title={element["Stop Name"]}
-						description={`${element["Daytime Routes"]}`}
-					/>
+						title={element[1]["Stop Name"]}
+						description={`${element[1]["Daytime Routes"]}`}>
+						<MapView.Callout onPress={() => this.goToSingleStation(element[0])}>
+							<Text>{element[1]["Stop Name"]}{"\n"}{`${element[1]["Daytime Routes"]}`}</Text>
+						</MapView.Callout>
+					</MapView.Marker>
 				)
 			})
 			if (this._isMounted) {
@@ -68,14 +54,23 @@ export default class App extends React.Component {
 		this._isMounted = false;
 	}
 
+	goToSingleStation = async (stationId) => {
+		let stationName = await this.getStationName(stationId);
+		Actions.singleTrainStation({stationId: `${stationId}`, title: `${stationName}` })
+	}
+
+	getStationName = async (stationId) => {
+		try {
+			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${stationId}`);
+			return data[`Stop Name`]
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	onMapReady = () => this.setState({ marginBottom: 0 })
 
 	render() {
-		let data = regionFrom(40.7831, -73.9712, 10000);
-		//console.log(data);
-		if (this.state.location.length > 0) {
-			console.log(this.state.location)
-		}
 		return (
 			<View style={styles.container}>
 				<MapView provider={PROVIDER_GOOGLE}
@@ -87,10 +82,8 @@ export default class App extends React.Component {
 						latitudeDelta: 0,
 						longitudeDelta: 0.08983111749910169,
 					}}
-					showsUserLocation={true}
-					showsMyLocationButton={true}
 					showsCompass={false}
-				>
+					loadingEnabled={true}>
 					{this.state.markers}
 				</MapView>
 			</View>

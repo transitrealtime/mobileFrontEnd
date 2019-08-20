@@ -5,17 +5,25 @@ import Landing from '../pages/home.js'
 import Train from './trainView'
 import Single from '../pages/singleTrain'
 import SingleTrainStation from '../pages/singleTrainStation';
-import map from './map.js';
+import AllMaps from '../pages/allMaps.js';
+import PinMap from './pinMap';
+import LocationMap from './locationMap';
+import PulseMap from './pulseMap';
+import TwitterFeed from '../pages/twitterFeed';
 
 const Routes = () => (
-      <Router cardStyle = {{backgroundColor : 'white'}}>
-         <ScrollView>
-            <Scene key="landing" component={Landing} title="Home" initial={true} />
-            <Scene key="train" component={Train} title="Trains" />
-            <Scene key="singleTrain" component={Single} title="Single" />
-            <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
-            <Scene key="map" component={map} title="New York City" />
-         </ScrollView>
-      </Router>
+   <Router cardStyle={{ backgroundColor: 'white' }}>
+      <ScrollView>
+         <Scene type="reset" key="landing" component={Landing} title="Home" initial={true} />
+         <Scene key="train" component={Train} title="Trains" />
+         <Scene key="singleTrain" component={Single} title="Single" />
+         <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
+         <Scene key="allMaps" component={AllMaps} title="All Maps" />
+         <Scene key="pinMap" component={PinMap} title="All Stations" />
+         <Scene key="locationMap" component={LocationMap} title="Where Am I" />
+         <Scene key="pulseMap" component={PulseMap} title="NYC Pulse" />
+         <Scene key="twitterFeed" component={TwitterFeed} title="@NYCT Subway" />
+      </ScrollView>
+   </Router>
 )
 export default Routes

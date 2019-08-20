@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Transit real Time",
-    "slug": "awesomeproject",
+    "slug": "transit-real-time",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -25,8 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier" : "com.andyzheng.transitrealtime"
-      
-    }
+      "bundleIdentifier": "com.andyzheng.transitrealtime"
+    },
+    "description": ""
   }
 }
