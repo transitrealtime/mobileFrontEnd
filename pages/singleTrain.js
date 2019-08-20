@@ -104,7 +104,6 @@ class Home extends React.Component {
 				<View style={styles.container}>
 					<View style={[styles.circles, { backgroundColor: this.state.trainColors[this.props.trains] }]}><Text style={{ fontSize: 30, color: 'white' }}>{this.props.trains}</Text></View>
 					<Card style = {{ alignSelf: 'stretch'}}>{this.display()}</Card>
-					{/* <Text style={{ color: 'white', fontSize: 20 }}>Easter egg :3</Text> */}
 				</View>
 			</ScrollView>
 		)

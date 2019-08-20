@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
 import { Card, CardItem, Header, Container, Title, Icon, Body, Right, Left } from 'native-base'
+import { Actions } from 'react-native-router-flux'
 import axios from 'axios';
 import trainColors from '../components/trainColors'
 
@@ -143,8 +144,8 @@ class singleTrainStation extends React.Component {
 		try {
 			if (this.state.heart === "ios-heart-empty") {
 				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
-			}else{
-				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`,)
+			} else {
+				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
 			}
 			this.setState({
 				heart: this.state.heart === "ios-heart-empty" ? "ios-heart" : "ios-heart-empty"
@@ -159,12 +160,15 @@ class singleTrainStation extends React.Component {
 		return (
 			<Container>
 				<Header style={{ backgroundColor: 'white' }}>
-					<Left></Left>
-					<Body style={{ flex: 3 }}><Text style={{ fontWeight: "500" }}>{this.props.title}</Text></Body>
+					<Left>
+						<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} onPress={() => { Actions.pop() }}>
+						</Icon>
+					</Left>
+					<Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body>
 					<Right>
 						<Icon
 							name={this.state.heart}
-							style={this.state.heart === "ios-heart-empty" ? {} : { color: 'red' }}
+							style={this.state.heart === "ios-heart-empty" ? { fontSize: 35 } : { fontSize: 35, color: 'red' }}
 							onPress={() => this.fetchFavoriteTrains()}>
 						</Icon>
 					</Right>
