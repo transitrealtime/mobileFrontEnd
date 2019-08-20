@@ -9,7 +9,7 @@ import AllMaps from '../pages/allMaps.js';
 import PinMap from './pinMap';
 import LocationMap from './locationMap';
 import PulseMap from './pulseMap';
-import TwitterFeed from './twitterFeed';
+import TwitterFeed from '../pages/twitterFeed';
 
 const Routes = () => (
    <Router cardStyle={{ backgroundColor: 'white' }}>

@@ -4,6 +4,8 @@ import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
 
+const trainColors = require('./trainColors')
+
 export default class Pulse extends React.Component {
 	_isMounted = false;
 	constructor(props) {
@@ -25,7 +27,7 @@ export default class Pulse extends React.Component {
 					pins.push(
 						<MapView.Marker
 							key={i++}
-							pinColor='#3498DB'
+							pinColor={trainColors[station[`train`]]}
 							coordinate={{
 								"latitude": station[`latitude`],
 								"longitude": station[`longitude`],
