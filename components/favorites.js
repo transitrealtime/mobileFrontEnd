@@ -28,6 +28,7 @@ export default class Favorites extends React.Component {
     }
 
     seedFavorites = () => {
+        this.getFavorites();
         let favs = this.state.favorites.length !== 0 ? this.state.favorites.map((element, i) => {
             return (<CardItem bordered key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Text>{element}</Text>

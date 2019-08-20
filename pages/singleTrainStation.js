@@ -134,7 +134,6 @@ class singleTrainStation extends React.Component {
 					heart: 'ios-heart'
 				})
 			}
-			console.log(this.state.heart);
 		}
 		catch (err) {
 			console.log(err);
@@ -150,7 +149,6 @@ class singleTrainStation extends React.Component {
 			this.setState({
 				heart: this.state.heart === "ios-heart-empty" ? "ios-heart" : "ios-heart-empty"
 			})
-			console.log(Expo.Constants.installationId);
 		} catch (err) {
 			console.log(err);
 		}
