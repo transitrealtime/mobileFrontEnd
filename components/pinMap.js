@@ -4,6 +4,8 @@ import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
 
+const trainColors = require('./trainColors')
+
 export default class App extends React.Component {
 	_isMounted = false;
 	constructor(props) {
@@ -21,11 +23,11 @@ export default class App extends React.Component {
 			let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
 			let i = 0;
 			Object.entries(data).forEach(element => {
-				console.log(element)
+				color = trainColors[element[1]["Daytime Routes"]] ? trainColors[element[1]["Daytime Routes"]] :'#3498DB';
 				pins.push(
 					<MapView.Marker
 						key={i++}
-						pinColor='#3498DB'
+						pinColor={color}
 						coordinate={{
 							"latitude": element[1]["GTFS Latitude"],
 							"longitude": element[1]["GTFS Longitude"],
