@@ -10,7 +10,6 @@ export default class Feed extends React.Component {
         super(props);
         this.state = {
             data: [],
-            date: [],
             refreshing: false,
         };
     };
@@ -64,7 +63,7 @@ export default class Feed extends React.Component {
                         <Left>
                             <Thumbnail source={{ uri: 'https://pbs.twimg.com/profile_images/1145800410386632705/rTXd0t2C.png' }} />
                             <Body>
-                                <Text style={{fontWeight:'bold'}}>@NYCTSubway · {moment(new Date(item.timestamp)).startOf('hour').fromNow()}</Text>
+                                <Text style={{fontWeight:'bold'}}>@NYCTSubway · {moment(new Date(item.timestamp)).startOf('hh:mm').fromNow()}</Text>
                                 <Text note>
                                     {moment(new Date(item.timestamp)).format('dddd MMMM D, YYYY')}
                                 </Text>
@@ -93,8 +92,8 @@ export default class Feed extends React.Component {
                     refreshing={this.state.refreshing}
                     onRefresh={this._onRefresh}
                 />
+                
             }>
-
                 {this.displayFeed()}
             </ScrollView>
         )

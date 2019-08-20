@@ -123,7 +123,11 @@ class singleTrainStation extends React.Component {
 								</View>
 								<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
 									<Text style={{ fontSize: 20 }}>
+<<<<<<< HEAD
 										{arrivalFirst == 'Arriving Now' ? `${arrivalFirst}` : `Arriving in ${arrivalFirst}`}
+=======
+										{arrivalFirst === "Arriving Now" ? `Arriving Now` : `Arriving in ${arrivalFirst}`}
+>>>>>>> 0a5e6c62a8009b5fa4141a4c403ff33bedc53399
 									</Text>
 									<Text>
 										{arrivalRest.substring(0, arrivalRest.length - 2)}
