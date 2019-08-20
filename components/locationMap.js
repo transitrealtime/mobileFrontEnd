@@ -1,9 +1,10 @@
 import React from 'react'
-import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-native'
+import {Text, StyleSheet, View } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
-import { regionFrom } from './getRegion'
+
+const trainColors = require('./trainColors')
 
 
 export default class App extends React.Component {
@@ -54,7 +55,7 @@ export default class App extends React.Component {
 							nearBy.push(
 								<MapView.Marker
 									key={i++}
-									pinColor='#3498DB'
+									pinColor={trainColors[element[`station`]["Daytime Routes"].toString()[0]]}
 									coordinate={{
 										"latitude": element[`station`]["GTFS Latitude"],
 										"longitude": element[`station`]["GTFS Longitude"],
