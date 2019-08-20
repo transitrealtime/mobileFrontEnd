@@ -47,11 +47,11 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-evenly',
-		flexDirection: 'column'
+		flexDirection: 'row'
 	},
 	view: {
 		display: 'flex',
-		flexDirection: "row",
+		flexDirection: "column",
 		justifyContent: "space-around",
 		alignItems: "center"
 	},

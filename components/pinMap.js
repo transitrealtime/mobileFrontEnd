@@ -21,6 +21,7 @@ export default class App extends React.Component {
 			let { data } = await axios.get('http://mta-real-time.herokuapp.com/stations').catch(err => console.log(err));
 			let i = 0;
 			Object.entries(data).forEach(element => {
+				console.log(element)
 				pins.push(
 					<MapView.Marker
 						key={i++}
