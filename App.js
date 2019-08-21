@@ -26,14 +26,14 @@ export default class App extends React.Component {
         <Routes></Routes>
         <Footer>
           <FooterTab>
-            <Button active={this.state.activePage === 1} onPress={async()=> {await this.setState({activePage:1});this.goHome()}}>
-              <Icon name="subway" />
+            <Button onPress={async()=> {await this.setState({activePage:1});this.goHome()}}>
+              <Icon style={this.state.activePage===1 ? {color:'#1E90FF'} : {}} name="subway" />
             </Button>
-            <Button active={this.state.activePage === 2} onPress={async()=> {await this.setState({activePage:2});this.goMap()}}>
-              <Icon active name="map" />
+            <Button onPress={async()=> {await this.setState({activePage:2});this.goMap()}}>
+              <Icon style={this.state.activePage===2 ? {color:'#1E90FF'} : {}} active name="map" />
             </Button>
-            <Button active={this.state.activePage === 3} onPress={async()=> {await this.setState({activePage:3});this.goTwitter()}}>
-              <Icon name="logo-twitter" />
+            <Button  onPress={async()=> {await this.setState({activePage:3});this.goTwitter()}}>
+              <Icon style={this.state.activePage===3 ? {color:'#1E90FF'} : {}} name="logo-twitter" />
             </Button>
           </FooterTab>
         </Footer>

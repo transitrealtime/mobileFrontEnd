@@ -19,11 +19,11 @@ const Routes = () => (
          <Scene key="train" component={Train} title="Trains" />
          <Scene key="singleTrain" component={Single} title="Single" />
          <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" hideNavBar={true} />
-         <Scene key="allMaps" component={AllMaps} title="All Maps" />
+         <Scene type="reset" key="allMaps" component={AllMaps} title="All Maps" />
          <Scene key="pinMap" component={PinMap} title="All Stations" />
          <Scene key="locationMap" component={LocationMap} title="Where Am I" />
          <Scene key="pulseMap" component={PulseMap} title="NYC Pulse" />
-         <Scene key="twitterFeed" component={TwitterFeed} title="@NYCT Subway" />
+         <Scene type="reset" key="twitterFeed" component={TwitterFeed} title="@NYCT Subway" />
          <Scene key="directionsMap" component={DirectionsMap} title="Directions" />
       </ScrollView>
    </Router>

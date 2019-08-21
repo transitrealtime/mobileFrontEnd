@@ -125,7 +125,6 @@ class singleTrainStation extends React.Component {
 				</View>
 			)
 		})
-		console.log(empty);
 		return <View>
 			{AllTrains}
 		</View>
