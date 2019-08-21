@@ -11,7 +11,6 @@ class Home extends React.Component {
                 <View style={styles.container}>
                     <Favorites></Favorites>
                     <TrainsView></TrainsView>
-                    <Text>{this.state.location}</Text>
                 </View>
             </ScrollView>
         )
