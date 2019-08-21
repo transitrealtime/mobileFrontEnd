@@ -20,6 +20,10 @@ export default class App extends React.Component {
   goTwitter = () => {
     Actions.twitterFeed()
   }
+  goDirections =()=>{
+    Actions.directions()
+  }
+
   render() {
     return (
       <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
@@ -35,6 +39,9 @@ export default class App extends React.Component {
             <Button  onPress={async()=> {await this.setState({activePage:3});this.goTwitter()}}>
               <Icon style={this.state.activePage===3 ? {color:'#1E90FF'} : {}} name="logo-twitter" />
             </Button>
+            <Button onPress={this.goDirections}>
+            <Icon name="logo-twitter" />
+          </Button>
           </FooterTab>
         </Footer>
       </Container>

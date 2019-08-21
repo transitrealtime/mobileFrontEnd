@@ -1,10 +1,8 @@
 import React from 'react'
 import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import axios from 'axios';
-
-const trainColors = require('./trainColors')
 
 export default class Directions extends React.Component {
 	_isMounted = false;
@@ -12,11 +10,20 @@ export default class Directions extends React.Component {
 		super(props);
 		this.state = {
 			marginBottom: 1,
+			coords: []
 		}
 	}
 
 	async componentDidMount() {
 		this._isMounted = true;
+		let origin="HunterCollege";
+		let destination="BaruchCollege";
+		try {
+			let {data} = await axios.get(`http://mta-real-time.herokuapp.com/direction/${origin}/${destination}`);
+			console.log(data)
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	componentWillUnmount() {
@@ -44,7 +51,7 @@ export default class Directions extends React.Component {
 			<View style={styles.container}>
 				<MapView provider={PROVIDER_GOOGLE}
 					onMapReady={this.onMapReady}
-					style={[styles.map, {marginBottom: this.state.marginBottom }]}
+					style={[styles.map, { marginBottom: this.state.marginBottom }]}
 					initialRegion={{
 						latitude: 40.7549,
 						longitude: -73.9840,
