@@ -21,19 +21,19 @@ const allMaps = () => {
 		<Container style={styles.container}>
 			<View style={styles.view}>
 				<Button onPress={goToAllPins}>
-					<FontAwesome5 style={{ fontSize: 20, color: 'white',width : 40, textAlign : 'center' }} name="map-pin" />
+					<FontAwesome5 style={styles.button} name="map-pin" />
 				</Button>
 				<Text style={{marginLeft:10}}>All Station</Text>
 			</View>
 			<View style={styles.view}>
 				<Button onPress={goToPulseMap}>
-					<Ionicons style={{ fontSize: 20, color: 'white',width : 40, textAlign : 'center'}} name="md-pulse" />
+					<Ionicons style={styles.button} name="md-pulse" />
 				</Button>
 				<Text style={{marginLeft:10}}>NYC Pulse</Text>
 			</View>
 			<View style={styles.view}>
 				<Button onPress={goToLocationMap}>
-					<Entypo style={{ fontSize: 20, color: 'white',width : 40, textAlign : 'center'}} name="location" />
+					<Entypo style={styles.button} name="location" />
 				</Button>
 				<Text style={{marginLeft:10}}>Where Am I</Text>
 			</View>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
 	},
 	text:{
 		marginLeft:10
-	}
+	},
+	button : { fontSize: 20, color: 'white',width : 40, textAlign : 'center' }
 })
 export default allMaps
