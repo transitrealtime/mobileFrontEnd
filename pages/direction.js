@@ -72,18 +72,21 @@ class Directions extends React.Component {
       data.forEach(route => {
         let path = [];
         {
-          route.path.map((step, i) => {
+          route.steps.map((step, i) => {
             path.push(
-              <CardItem key={i}>
-                {step}
-                <Text>{step}</Text>
+              <CardItem key={i} >
+                {step.transitType === "WALKING" ?
+                  <Text>{step.instructions}{step.duration}</Text>
+                  :
+                  <Text>{"Take "}{step.instructions}{step.duration}</Text>
+                }
               </CardItem>
             )
           })
         }
         view.push(
           <Card key={i++}>
-            <CardItem style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+            <CardItem style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text>{route.departure}{" "}{route.arrival}</Text>
               <Text>Estimate: {route.tripDuration}</Text>
             </CardItem>
