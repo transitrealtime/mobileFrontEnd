@@ -80,8 +80,10 @@ class Directions extends React.Component {
               pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
             }
             else {
-              console.log(step.trainInfo.trainColor)
-              pathView.push(<View key={i} styles={[styles.circle, { backgroundColor: step.trainInfo.trainColor }]}><Text style={{ color: 'white', fontSize: 15 }}>{step.trainInfo.train}</Text></View>);
+              pathView.push(
+                <View key={i} style = {[styles.circle,{backgroundColor :step.trainInfo.trainColor}]}>
+                  <Text style={[{color: 'white', fontSize: 12 }]}>{step.trainInfo.train}</Text>
+                </View>);
               pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
             }
             path.push
@@ -165,7 +167,6 @@ class Directions extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
   autocompleteContainer: {
     flex: 1,
     zIndex: 1
@@ -180,14 +181,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap'
   },
-  circle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center",
+  // circle: {
+  //   width: 20,
+  //   height: 20,
+  //   borderRadius: 10,
+  //   borderWidth : .5,
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // }
+  circle : {
+    borderRadius : 10, 
+    width :20, 
+    height : 20,
+    justifyContent : 'center',
+    alignItems : 'center'
   }
 });
 export default Directions
