@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
-import { Card, CardItem, Container, Button, Content, Right, Icon } from 'native-base'
+import { Card, CardItem, Container, Button, Content, Right, Icon, Body } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Directions extends React.Component {
@@ -31,7 +31,9 @@ class Directions extends React.Component {
             })
           }
           console.log(currLoc)
-        }
+        },
+        error => Alert.alert(error.message),
+        { timeout: 20000, maximumAge: 1000 }
       )
     } catch (err) {
       console.log(err)
@@ -66,36 +68,53 @@ class Directions extends React.Component {
     try {
       let currLoc = await this.state.currLoc;
       let { data } = await axios.get(`http://mta-real-time.herokuapp.com/direction/${currLoc.latitude + `,` + currLoc.longitude}/${this.state.destination}`)
-      let view = [];
-      let routes = [];
+      let route = [];
       let i = 0;
-      data.forEach(route => {
+      data.forEach(routes => {
         let path = [];
+        let pathView = [];
         {
-          route.steps.map((step, i) => {
-            path.push(
-              <CardItem key={i} >
+          routes.steps.map((step, i) => {
+            if (step.transitType === "WALKING") {
+              pathView.push(<Icon key={i} name="md-walk" />);
+              pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
+            }
+            else {
+              console.log(step.trainInfo.trainColor)
+              pathView.push(<View key={i} styles={[styles.circle, { backgroundColor: step.trainInfo.trainColor }]}><Text style={{ color: 'white', fontSize: 15 }}>{step.trainInfo.train}</Text></View>);
+              pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
+            }
+            path.push
+              (<CardItem key={i + 1 * 33} >
                 {step.transitType === "WALKING" ?
-                  <Text>{step.instructions}{step.duration}</Text>
+                  <Body style={styles.leftRight}>
+                    <Text>{step.instructions}</Text>
+                    <Text>{step.duration}</Text>
+                  </Body>
                   :
-                  <Text>{"Take "}{step.instructions}{step.duration}</Text>
+                  <Body style={styles.leftRight}>
+                    <Text>{"Take "}{step.instructions.replace("Subway", `${step.trainInfo.train} train`)}{" to"}{"\n"}{step.trainInfo.arrivalStop}</Text>
+                    <Text>{step.duration}</Text>
+                  </Body>
                 }
-              </CardItem>
-            )
+              </CardItem>)
           })
         }
-        view.push(
+        route.push(
           <Card key={i++}>
-            <CardItem style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text>{route.departure}{" "}{route.arrival}</Text>
-              <Text>Estimate: {route.tripDuration}</Text>
+            <Card style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+              {pathView}<Text>{routes.tripDuration}</Text>
+            </Card>
+            <CardItem style={styles.leftRight}>
+              <Text>Departure Time:{routes.departure}</Text>
+              <Text>Estimated Arrival:{routes.arrival}</Text>
             </CardItem>
             {path}
           </Card>
         );
       })
       this.setState({
-        route: view
+        route: route
       })
     } catch (err) {
       console.log(err)
@@ -155,15 +174,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  itemText: {
-    fontSize: 15,
-    paddingTop: 5,
-    paddingBottom: 5,
-    margin: 2,
+  leftRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   },
-  infoText: {
-    textAlign: 'center',
-    fontSize: 16,
-  },
+  circle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 export default Directions

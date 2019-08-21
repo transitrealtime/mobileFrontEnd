@@ -17,37 +17,13 @@ class Home extends React.Component {
 		this.state = {
 			stations: [],
 			train: "",
-			trainColors: {
-				1: "#EE352E",
-				2: "#EE352E",
-				3: "#EE352E",
-				4: "#00933C",
-				5: "#00933C",
-				6: "#00933C",
-				7: "#B933AD",
-				"A": "#0039A6",
-				"B": "#FF6319",
-				"C": "#0039A6",
-				"D": "#FF6319",
-				"E": "#0039A6",
-				"F": "#FF6319",
-				"G": "#6CBE45",
-				"J": "#996633",
-				"L": "#808183",
-				"M": "#FF6319",
-				"N": 'rgb(217,189,17)',
-				"Q": 'rgb(217,189,17)',
-				"R": 'rgb(217,189,17)',
-				"S": "#808183",
-				"W": 'rgb(217,189,17)',
-				"Z": "#996633"
-			}
+			trainColors: require('../components/trainColors')
 		}
 	}
 
 	goToSingleStation = async (train, stationId) => {
 		let stationName = await this.getStationName(stationId);
-		Actions.singleTrainStation({ train: `${train}`, stationId: `${stationId}`, title: `${train} Train ${stationName}` })
+		Actions.singleTrainStation({ train: `${train}`, stationId: `${stationId}`, stationName: stationName, title: `${train} Train ${stationName}` })
 	}
 
 	getStationName = async (stationId) => {
@@ -86,7 +62,7 @@ class Home extends React.Component {
 					key={i}
 					bordered button
 					onPress={() => this.goToSingleStation(this.props.trains, item.stationId)}
-					style = {{display :'flex',flexDirection: 'row', justifyContent: 'space-between'}}
+					style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
 				>
 					<Text style={[styles.stationText, { color: color2 }]}>
 						{`${item.stationName}`}
@@ -103,7 +79,7 @@ class Home extends React.Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={[styles.circles, { backgroundColor: this.state.trainColors[this.props.trains] }]}><Text style={{ fontSize: 30, color: 'white' }}>{this.props.trains}</Text></View>
-					<Card style = {{ alignSelf: 'stretch'}}>{this.display()}</Card>
+					<Card style={{ alignSelf: 'stretch' }}>{this.display()}</Card>
 				</View>
 			</ScrollView>
 		)

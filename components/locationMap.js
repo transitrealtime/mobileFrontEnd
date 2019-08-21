@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import axios from 'axios';
@@ -15,8 +15,13 @@ export default class App extends React.Component {
 			marginBottom: 1,
 			location: [],
 			distance: [],
-			initialRegion:[],
+			initialRegion: [],
 		}
+	}
+
+	
+	goToSingleStation = async (stationId, train, stationName) => {
+		Actions.singleTrainStation({ stationId: `${stationId}`, title: `${stationName}`, stationName: stationName, train: train })
 	}
 
 	async componentDidMount() {
@@ -63,7 +68,9 @@ export default class App extends React.Component {
 									}}
 									title={element[`station`]["Stop Name"]}
 									description={`${element[`station`]["Daytime Routes"]}`}>
-									<MapView.Callout onPress={() => this.goToSingleStation(element[`stationId`])}>
+									<MapView.Callout onPress={() => this.goToSingleStation(
+										element[`stationId`], element[`station`][`Daytime Routes`].toString()[0],
+										element[`station`]["Stop Name"])}>
 										<Text>{element[`station`]["Stop Name"]}{"\n"}{`${element[`station`]["Daytime Routes"]}`}</Text>
 									</MapView.Callout>
 								</MapView.Marker>
@@ -79,18 +86,12 @@ export default class App extends React.Component {
 					}
 				},
 				error => Alert.alert(error.message),
-				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+				{ timeout: 20000, maximumAge: 1000 }
 			);
 		} catch (err) {
 			console.log(err)
 		}
 	}
-
-	goToSingleStation = async (stationId) => {
-		let stationName = await this.getStationName(stationId);
-		Actions.singleTrainStation({stationId: `${stationId}`, title: `${stationName}` })
-	}
-
 	getStationName = async (stationId) => {
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${stationId}`);

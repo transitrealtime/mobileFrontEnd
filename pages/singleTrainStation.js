@@ -60,6 +60,7 @@ class singleTrainStation extends React.Component {
 			console.log(err)
 		}
 	}
+
 	_onRefresh = () => {
 		this.setState({ refreshing: true });
 		this.fetchTrainTimes().then(() => {
@@ -82,42 +83,45 @@ class singleTrainStation extends React.Component {
 		let sideIndex = -1;
 		let empty = true;
 		let AllTrains = [this.state.northBound, this.state.southBound].map((side) => {
-			let display = side.length !== 0 ? side.map((train, i) => {
-				empty = false;
-				let arrivalFirst = "";
-				let arrivalRest = "";
-				for (let i = 0; i < train.length; i++) {
-					if (i === 0) arrivalFirst = train[i].minutesArrival;
-					else {
-						arrivalRest += train[i].minutesArrival + ' , ';
+			let display;
+			if (side.length !== 0) {
+				display = side.map((train, i) => {
+					let arrivalFirst = "";
+					let arrivalRest = "";
+					for (let i = 0; i < train.length; i++) {
+						if (i === 0) arrivalFirst = train[i].minutesArrival;
+						else {
+							arrivalRest += train[i].minutesArrival + ' , ';
+						}
 					}
-				}
-				if (train.length !== 0) {
-					return (
-						<View key={i}>
-							<CardItem header bordered style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-								<View style={[styles.circles, { backgroundColor: trainColors[train[0]["routeId"]] }]}>
-									<Text style={{ fontSize: 30, color: 'white', fontWeight: "bold" }}>
-										{train[0]["routeId"]}
-									</Text>
-								</View>
-								<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-									<Text style={{ fontSize: 20 }}>
-										{arrivalFirst == 'Arriving Now' ? `${arrivalFirst}` : `Arriving in ${arrivalFirst}`}
-									</Text>
-									<Text>
-										{arrivalRest.substring(0, arrivalRest.length - 2)}
-									</Text>
-								</View>
-							</CardItem>
-						</View>
-					)
-				}
-			}) : <CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem>
+					if (train.length !== 0) {
+						empty = false;
+						return (
+							<View key={i}>
+								<CardItem header bordered style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+									<View style={[styles.circles, { backgroundColor: trainColors[train[0]["routeId"]] }]}>
+										<Text style={{ fontSize: 30, color: 'white', fontWeight: "bold" }}>
+											{train[0]["routeId"]}
+										</Text>
+									</View>
+									<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+										<Text style={{ fontSize: 20 }}>
+											{arrivalFirst == 'Arriving Now' ? `${arrivalFirst}` : `Arriving in ${arrivalFirst}`}
+										</Text>
+										<Text>
+											{arrivalRest.substring(0, arrivalRest.length - 2)}
+										</Text>
+									</View>
+								</CardItem>
+							</View>
+						)
+					}
+				})
+			}
 			return (
 				<View key={sideIndex++}>
 					<Card><CardItem header style={{ flex: 1, justifyContent: 'center' }}><Text style={{ fontSize: 20 }}>{sideIndex === 0 ? 'Uptown' : 'Downtown'} </Text></CardItem></Card>
-					{empty ? <Card><CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem></Card> : <Card>{display}</Card>}
+					{empty == true ? <Card><CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem></Card> : <Card>{display}</Card>}
 				</View>
 			)
 		})
@@ -127,30 +131,32 @@ class singleTrainStation extends React.Component {
 	}
 
 	isFavorite = async () => {
+		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
-			if (data.includes(this.props.title)) {
+			if (data.includes(string)) {
 				this.setState({
 					heart: 'ios-heart'
 				})
 			}
-			console.log(this.state.heart);
 		}
 		catch (err) {
 			console.log(err);
 		}
 	}
+
 	fetchFavoriteTrains = async () => {
+		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
+		console.log(string)
 		try {
 			if (this.state.heart === "ios-heart-empty") {
-				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
+				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
 			} else {
-				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
+				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
 			}
 			this.setState({
 				heart: this.state.heart === "ios-heart-empty" ? "ios-heart" : "ios-heart-empty"
 			})
-			console.log(Expo.Constants.installationId);
 		} catch (err) {
 			console.log(err);
 		}
@@ -161,7 +167,7 @@ class singleTrainStation extends React.Component {
 			<Container>
 				<Header style={{ backgroundColor: 'white' }}>
 					<Left>
-						<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} onPress={() => { Actions.pop() }}>
+						<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} onPress={() => { Actions.pop() }} hitSlop={{top: 50, bottom: 50, left: 50, right: 80}}>
 						</Icon>
 					</Left>
 					<Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body>
@@ -169,6 +175,7 @@ class singleTrainStation extends React.Component {
 						<Icon
 							name={this.state.heart}
 							style={this.state.heart === "ios-heart-empty" ? { fontSize: 35 } : { fontSize: 35, color: 'red' }}
+							hitSlop={{top: 40, bottom: 40, left: 40, right: 40}}
 							onPress={() => this.fetchFavoriteTrains()}>
 						</Icon>
 					</Right>
