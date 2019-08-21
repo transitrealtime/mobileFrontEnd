@@ -175,6 +175,7 @@ class singleTrainStation extends React.Component {
 						<Icon
 							name={this.state.heart}
 							style={this.state.heart === "ios-heart-empty" ? { fontSize: 35 } : { fontSize: 35, color: 'red' }}
+							hitSlop={{top: 40, bottom: 40, left: 40, right: 40}}
 							onPress={() => this.fetchFavoriteTrains()}>
 						</Icon>
 					</Right>

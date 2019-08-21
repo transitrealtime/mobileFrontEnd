@@ -51,7 +51,7 @@ export default class Favorites extends React.Component {
                     <View style = {[styles.circle,{backgroundColor : trainColors[decoded[0]]}]}><Text style={{color:'white',fontSize:15}}>{decoded[0]}</Text></View>
                     <Text>{decoded[2]}</Text>
                     <Right>
-                        <Icon onPress={() => { this.removeFavorite(element) }} name="ios-heart" style={{ color: 'red' }}>
+                        <Icon onPress={() => { this.removeFavorite(element) }} name="ios-heart" style={{ color: 'red' }} hitSlop={{top: 50, bottom: 50, left: 80, right: 50}} >
                         </Icon>
                     </Right>
                 </CardItem>)
