@@ -25,6 +25,7 @@ export default class App extends React.Component {
 			await navigator.geolocation.getCurrentPosition(
 				async position => {
 					const obj = JSON.stringify(position);
+					await console.log(obj);
 					const location = JSON.parse(obj)
 					try {
 						let { data } = await axios.get('https://mta-real-time.herokuapp.com/stations');
@@ -78,7 +79,7 @@ export default class App extends React.Component {
 					}
 				},
 				error => Alert.alert(error.message),
-				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+				{timeout: 20000, maximumAge: 1000 }
 			);
 		} catch (err) {
 			console.log(err)

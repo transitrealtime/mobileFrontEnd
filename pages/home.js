@@ -4,17 +4,19 @@ import TrainsView from '../components/trainView';
 import Favorites from '../components/favorites';
 
 
-const Home = () => {
-    return (
-        <ScrollView>
-            <View style={styles.container}>
-                <Favorites></Favorites>
-                <TrainsView></TrainsView>
-            </View>
-        </ScrollView>
-    )
+class Home extends React.Component {
+    render() {
+        return (
+            <ScrollView>
+                <View style={styles.container}>
+                    <Favorites></Favorites>
+                    <TrainsView></TrainsView>
+                    <Text>{this.state.location}</Text>
+                </View>
+            </ScrollView>
+        )
+    }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

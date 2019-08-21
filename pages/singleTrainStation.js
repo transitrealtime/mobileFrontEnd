@@ -147,6 +147,7 @@ class singleTrainStation extends React.Component {
 
 	fetchFavoriteTrains = async () => {
 		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
+		console.log(string)
 		try {
 			if (this.state.heart === "ios-heart-empty") {
 				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
