@@ -22,7 +22,7 @@ const trainsView = () => {
     let yellowTrains = ["N", "Q", "R", "W"];
     let grayTrains = ["L","S","7"];
     let brownTrains = ["J", "Z","G"];
-    let allTrains = [redTrains, greenTrains, blueTrains, orangeTrains, yellowTrains, grayTrains, brownTrains];
+    let allTrains = [redTrains, greenTrains, blueTrains, grayTrains, brownTrains, orangeTrains, yellowTrains];
     //let train = ["1", "2", "3", "4", "5", "6", "A", "C", "E", "B", "D", "F", "M", "N", "Q", "R", "W", "L" ,"J","Z", "S", "G","7"];
     let x = 0;
     let display = allTrains.map(trains => {

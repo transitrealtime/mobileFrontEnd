@@ -10,6 +10,7 @@ import PinMap from './pinMap';
 import LocationMap from './locationMap';
 import PulseMap from './pulseMap';
 import TwitterFeed from '../pages/twitterFeed';
+import DirectionsMap from './directionsMap';
 
 const Routes = () => (
    <Router cardStyle={{ backgroundColor: 'white' }}>
@@ -23,6 +24,7 @@ const Routes = () => (
          <Scene key="locationMap" component={LocationMap} title="Where Am I" />
          <Scene key="pulseMap" component={PulseMap} title="NYC Pulse" />
          <Scene key="twitterFeed" component={TwitterFeed} title="@NYCT Subway" />
+         <Scene key="directionsMap" component={DirectionsMap} title="Directions" />
       </ScrollView>
    </Router>
 )
