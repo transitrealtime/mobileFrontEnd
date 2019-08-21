@@ -23,7 +23,7 @@ class Home extends React.Component {
 
 	goToSingleStation = async (train, stationId) => {
 		let stationName = await this.getStationName(stationId);
-		Actions.singleTrainStation({ train: `${train}`, stationId: `${stationId}`, stationName : stationName,title: `${train} Train ${stationName}` })
+		Actions.singleTrainStation({ train: `${train}`, stationId: `${stationId}`, stationName: stationName, title: `${train} Train ${stationName}` })
 	}
 
 	getStationName = async (stationId) => {
@@ -62,7 +62,7 @@ class Home extends React.Component {
 					key={i}
 					bordered button
 					onPress={() => this.goToSingleStation(this.props.trains, item.stationId)}
-					style = {{display :'flex',flexDirection: 'row', justifyContent: 'space-between'}}
+					style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
 				>
 					<Text style={[styles.stationText, { color: color2 }]}>
 						{`${item.stationName}`}
@@ -79,7 +79,7 @@ class Home extends React.Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={[styles.circles, { backgroundColor: this.state.trainColors[this.props.trains] }]}><Text style={{ fontSize: 30, color: 'white' }}>{this.props.trains}</Text></View>
-					<Card style = {{ alignSelf: 'stretch'}}>{this.display()}</Card>
+					<Card style={{ alignSelf: 'stretch' }}>{this.display()}</Card>
 				</View>
 			</ScrollView>
 		)

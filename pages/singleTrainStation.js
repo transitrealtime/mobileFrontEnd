@@ -83,45 +83,49 @@ class singleTrainStation extends React.Component {
 		let sideIndex = -1;
 		let empty = true;
 		let AllTrains = [this.state.northBound, this.state.southBound].map((side) => {
-			let display = side.length !== 0 ? side.map((train, i) => {
-				empty = false;
-				let arrivalFirst = "";
-				let arrivalRest = "";
-				for (let i = 0; i < train.length; i++) {
-					if (i === 0) arrivalFirst = train[i].minutesArrival;
-					else {
-						arrivalRest += train[i].minutesArrival + ' , ';
+			let display;
+			if (side.length !== 0) {
+				display = side.map((train, i) => {
+					let arrivalFirst = "";
+					let arrivalRest = "";
+					for (let i = 0; i < train.length; i++) {
+						if (i === 0) arrivalFirst = train[i].minutesArrival;
+						else {
+							arrivalRest += train[i].minutesArrival + ' , ';
+						}
 					}
-				}
-				if (train.length !== 0) {
-					return (
-						<View key={i}>
-							<CardItem header bordered style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-								<View style={[styles.circles, { backgroundColor: trainColors[train[0]["routeId"]] }]}>
-									<Text style={{ fontSize: 30, color: 'white', fontWeight: "bold" }}>
-										{train[0]["routeId"]}
-									</Text>
-								</View>
-								<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-									<Text style={{ fontSize: 20 }}>
-										{arrivalFirst == 'Arriving Now' ? `${arrivalFirst}` : `Arriving in ${arrivalFirst}`}
-									</Text>
-									<Text>
-										{arrivalRest.substring(0, arrivalRest.length - 2)}
-									</Text>
-								</View>
-							</CardItem>
-						</View>
-					)
-				}
-			}) : <CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem>
+					if (train.length !== 0) {
+						empty = false;
+						return (
+							<View key={i}>
+								<CardItem header bordered style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+									<View style={[styles.circles, { backgroundColor: trainColors[train[0]["routeId"]] }]}>
+										<Text style={{ fontSize: 30, color: 'white', fontWeight: "bold" }}>
+											{train[0]["routeId"]}
+										</Text>
+									</View>
+									<View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+										<Text style={{ fontSize: 20 }}>
+											{arrivalFirst == 'Arriving Now' ? `${arrivalFirst}` : `Arriving in ${arrivalFirst}`}
+										</Text>
+										<Text>
+											{arrivalRest.substring(0, arrivalRest.length - 2)}
+										</Text>
+									</View>
+								</CardItem>
+							</View>
+						)
+					}
+				})
+			}
 			return (
 				<View key={sideIndex++}>
 					<Card><CardItem header style={{ flex: 1, justifyContent: 'center' }}><Text style={{ fontSize: 20 }}>{sideIndex === 0 ? 'Uptown' : 'Downtown'} </Text></CardItem></Card>
-					{empty ? <Card><CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem></Card> : <Card>{display}</Card>}
+					{empty == true ? <Card><CardItem><Text style={{ fontSize: 20 }}>{'No Trains Found :('}</Text></CardItem></Card> : <Card>{display}</Card>}
 				</View>
 			)
 		})
+		console.log(empty);
 		return <View>
 			{AllTrains}
 		</View>

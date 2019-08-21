@@ -18,6 +18,7 @@ export default class Favorites extends React.Component {
     getFavorites = async () => {
         try {
             let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
+            console.log(Expo.Constants.installationId)
             if (this._isMounted) {
                 this.setState({
                     favorites: data
@@ -39,11 +40,10 @@ export default class Favorites extends React.Component {
         } catch (error){
             console.log(error);
         }
-        this.seedFavorites();
+        this.getFavorites();
     }
 
     seedFavorites = () => {
-        this.getFavorites();
         let favs = this.state.favorites.length !== 0 ? this.state.favorites.map((element, i) => {
             let decoded = element.split(',');
             return (
@@ -63,6 +63,7 @@ export default class Favorites extends React.Component {
         this.setState({
             hide: !this.state.hide
         })
+        this.getFavorites();
     }
 
     componentDidMount() {
