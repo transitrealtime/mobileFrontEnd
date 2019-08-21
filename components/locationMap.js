@@ -91,14 +91,6 @@ export default class App extends React.Component {
 			console.log(err)
 		}
 	}
-	getStationName = async (stationId) => {
-		try {
-			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${stationId}`);
-			return data[`Stop Name`]
-		} catch (err) {
-			console.log(err)
-		}
-	}
 
 	haversine = ([lat1, lon1], [lat2, lon2]) => {
 		const [pi, asin, sin, cos, sqrt, pow, round] = [
