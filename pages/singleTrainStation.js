@@ -167,7 +167,7 @@ class singleTrainStation extends React.Component {
 			<Container>
 				<Header style={{ backgroundColor: 'white' }}>
 					<Left>
-						<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} onPress={() => { Actions.pop() }}>
+						<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} onPress={() => { Actions.pop() }} hitSlop={{top: 50, bottom: 50, left: 50, right: 80}}>
 						</Icon>
 					</Left>
 					<Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body>
