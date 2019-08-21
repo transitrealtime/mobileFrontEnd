@@ -61,7 +61,7 @@ export default class Feed extends React.Component {
                 <Card style={{ flex: 0 }} key={i}>
                     <CardItem>
                         <Left>
-                            <Thumbnail source={{ uri: 'https://pbs.twimg.com/profile_images/1145800410386632705/rTXd0t2C.png' }} />
+                            <Thumbnail large source={{ uri: 'https://pbs.twimg.com/profile_images/1145800410386632705/rTXd0t2C.png' }} />
                             <Body>
                                 <Text style={{fontWeight:'bold'}}>@NYCTSubway · {moment(new Date(item.timestamp)).startOf('hh:mm').fromNow()}</Text>
                                 <Text note>
