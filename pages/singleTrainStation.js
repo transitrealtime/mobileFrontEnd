@@ -60,6 +60,7 @@ class singleTrainStation extends React.Component {
 			console.log(err)
 		}
 	}
+
 	_onRefresh = () => {
 		this.setState({ refreshing: true });
 		this.fetchTrainTimes().then(() => {
@@ -127,9 +128,10 @@ class singleTrainStation extends React.Component {
 	}
 
 	isFavorite = async () => {
+		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
 		try {
 			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
-			if (data.includes(this.props.title)) {
+			if (data.includes(string)) {
 				this.setState({
 					heart: 'ios-heart'
 				})
@@ -139,12 +141,14 @@ class singleTrainStation extends React.Component {
 			console.log(err);
 		}
 	}
+
 	fetchFavoriteTrains = async () => {
+		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
 		try {
 			if (this.state.heart === "ios-heart-empty") {
-				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
+				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
 			} else {
-				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${this.props.title}`)
+				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
 			}
 			this.setState({
 				heart: this.state.heart === "ios-heart-empty" ? "ios-heart" : "ios-heart-empty"

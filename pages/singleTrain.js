@@ -23,7 +23,7 @@ class Home extends React.Component {
 
 	goToSingleStation = async (train, stationId) => {
 		let stationName = await this.getStationName(stationId);
-		Actions.singleTrainStation({ train: `${train}`, stationId: `${stationId}`, title: `${train} Train ${stationName}` })
+		Actions.singleTrainStation({ train: `${train}`, stationId: `${stationId}`, stationName : stationName,title: `${train} Train ${stationName}` })
 	}
 
 	getStationName = async (stationId) => {
