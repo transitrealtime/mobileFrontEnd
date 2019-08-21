@@ -3,6 +3,7 @@ import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-nati
 import { Actions } from 'react-native-router-flux'
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import axios from 'axios';
+// import console = require('console');
 
 export default class Directions extends React.Component {
 	_isMounted = false;
@@ -16,33 +17,21 @@ export default class Directions extends React.Component {
 
 	async componentDidMount() {
 		this._isMounted = true;
-		let origin="HunterCollege";
-		let destination="BaruchCollege";
-		try {
-			let {data} = await axios.get(`http://mta-real-time.herokuapp.com/direction/${origin}/${destination}`);
-			console.log(data)
-		} catch (err) {
-			console.log(err)
-		}
+		// let origin="HunterCollege";
+		// let destination="BaruchCollege";
+		// try {
+		// 	let {data} = await axios.get(`http://mta-real-time.herokuapp.com/direction/${origin}/${destination}`);
+		// 	console.log(data)
+		// } catch (err) {
+		// 	console.log(err)
+		// }
+		console.log(this.props.path)
 	}
 
 	componentWillUnmount() {
 		this._isMounted = false;
 	}
 
-	goToSingleStation = async (stationId) => {
-		let stationName = await this.getStationName(stationId);
-		Actions.singleTrainStation({ stationId: `${stationId}`, title: `${stationName}` })
-	}
-
-	getStationName = async (stationId) => {
-		try {
-			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/stations/${stationId}`);
-			return data[`Stop Name`]
-		} catch (err) {
-			console.log(err)
-		}
-	}
 
 	onMapReady = () => this.setState({ marginBottom: 0 })
 

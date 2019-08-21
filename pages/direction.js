@@ -1,9 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input';
-import axios from 'axios';
 import { Card, CardItem, Container, Button, Content, Right, Icon, Body } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 
 class Directions extends React.Component {
   _isMounted = false;
@@ -64,6 +66,11 @@ class Directions extends React.Component {
     return stations.filter(item => item.search(regex) >= 0);
   }
 
+  goToDirections = async(route) => {
+		Actions.directionsMap({path: `${route}`})
+	}
+
+
   query = async () => {
     try {
       let currLoc = await this.state.currLoc;
@@ -73,14 +80,13 @@ class Directions extends React.Component {
       data.forEach(routes => {
         let path = [];
         let pathView = [];
-        {
+        { 
           routes.steps.map((step, i) => {
             if (step.transitType === "WALKING") {
               pathView.push(<Icon key={i} name="md-walk" />);
               pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
             }
             else {
-              console.log(step.trainInfo.trainColor)
               pathView.push(<View key={i} styles={[styles.circle, { backgroundColor: step.trainInfo.trainColor }]}><Text style={{ color: 'white', fontSize: 15 }}>{step.trainInfo.train}</Text></View>);
               pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
             }
@@ -110,6 +116,7 @@ class Directions extends React.Component {
               <Text>Estimated Arrival:{routes.arrival}</Text>
             </CardItem>
             {path}
+            <MaterialCommunityIcons style={{textAlign:'right',fontSize:35}} onPress={()=>this.goToDirections(routes)} name="google-maps" />
           </Card>
         );
       })
