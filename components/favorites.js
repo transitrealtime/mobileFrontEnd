@@ -18,7 +18,6 @@ export default class Favorites extends React.Component {
     getFavorites = async () => {
         try {
             let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
-            console.log(Expo.Constants.installationId)
             if (this._isMounted) {
                 this.setState({
                     favorites: data
@@ -79,7 +78,7 @@ export default class Favorites extends React.Component {
         return <View style={{ alignSelf: 'stretch', marginBottom: 20 }}>
             <Card>
                 <CardItem header button onPress={() => { this.display() }} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: 20 }}>Favorites</Text>
+                    <Text style={{fontSize: 20 }}>Favorites</Text>
                     <Right>
                         <Icon name="arrow-forward" />
                     </Right>
