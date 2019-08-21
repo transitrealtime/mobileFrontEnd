@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import { Card, CardItem, Container, Button, Content, Right, Icon } from 'native-base'
+import { ScrollView } from 'react-native-gesture-handler';
 
 class Directions extends React.Component {
   _isMounted = false;
@@ -12,7 +13,7 @@ class Directions extends React.Component {
       currLoc: [],
       stations: [],
       destination: "",
-      routes: []
+      route: []
     }
   }
 
@@ -66,18 +67,29 @@ class Directions extends React.Component {
       let currLoc = await this.state.currLoc;
       let { data } = await axios.get(`http://mta-real-time.herokuapp.com/direction/${currLoc.latitude + `,` + currLoc.longitude}/${this.state.destination}`)
       let view = [];
+      let routes = [];
+      let i = 0;
       data.forEach(route => {
         let path = [];
-        <Card>
-          {route.path.map(step => {
+        {
+          route.path.map((step, i) => {
             path.push(
-              <CardItem>
+              <CardItem key={i}>
                 {step}
+                <Text>{step}</Text>
               </CardItem>
             )
-          })}
-        </Card>
-        view.push(path)
+          })
+        }
+        view.push(
+          <Card key={i++}>
+            <CardItem style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+              <Text>{route.departure}{" "}{route.arrival}</Text>
+              <Text>Estimate: {route.tripDuration}</Text>
+            </CardItem>
+            {path}
+          </Card>
+        );
       })
       this.setState({
         route: view
@@ -121,10 +133,10 @@ class Directions extends React.Component {
             </CardItem>
           </TouchableOpacity>
         </Card>
-        <Card>
-          {this.state.routes.length > 0 ?
-            <Card>{this.state.routes}</Card> : (<CardItem><Text>Nothing</Text></CardItem>)}
-        </Card>
+        <ScrollView>
+          {this.state.route.length > 0 ?
+            (<View>{this.state.route}</View>) : (<CardItem><Text>Nothing</Text></CardItem>)}
+        </ScrollView>
       </Container>
     );
   }
