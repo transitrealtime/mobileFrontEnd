@@ -14,7 +14,11 @@ export default App = () => {
   const goTwitter = () => {
     Actions.twitterFeed()
   }
- 
+  
+  const goDirections =()=>{
+    Actions.directions()
+  }
+
   return (
     <Container style = {{display : 'flex',flexDirection : 'column', justifyContent: 'center',alignContent:'center'}}>
       <Routes></Routes>
@@ -27,6 +31,9 @@ export default App = () => {
             <Icon active name="map" />
           </Button>
           <Button onPress={goTwitter}>
+            <Icon name="logo-twitter" />
+          </Button>
+          <Button onPress={goDirections}>
             <Icon name="logo-twitter" />
           </Button>
         </FooterTab>

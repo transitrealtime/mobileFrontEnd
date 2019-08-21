@@ -26,21 +26,22 @@ export default class App extends React.Component {
 				async position => {
 					const obj = JSON.stringify(position);
 					const location = JSON.parse(obj)
+					const currLoc = [location[`coords`][`latitude`], location[`coords`][`longitude`]];
+					console.log(currLoc)
+					let region = {
+						latitude: location[`coords`][`latitude`],
+						longitude: location[`coords`][`longitude`],
+						latitudeDelta: 0.01,
+						longitudeDelta: 0.01
+					}
+					this.mapView.animateToRegion(region,1000);
+					if(this._isMounted){
+						this.setState({
+							initialRegion:region
+						})
+					}
 					try {
 						let { data } = await axios.get('https://mta-real-time.herokuapp.com/stations');
-						const currLoc = [location[`coords`][`latitude`], location[`coords`][`longitude`]];
-						let region = {
-							latitude: location[`coords`][`latitude`],
-							longitude: location[`coords`][`longitude`],
-							latitudeDelta: 0.01,
-							longitudeDelta: 0.01
-						}
-						this.mapView.animateToRegion(region,1000);
-						if(this._isMounted){
-							this.setState({
-								initialRegion:region
-							})
-						}
 						let distance = [];
 						for (let stations in data) {
 							distance.push({
