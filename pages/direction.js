@@ -5,6 +5,8 @@ import { Card, CardItem, Container, Button, Content, Right, Icon, Body } from 'n
 import { ScrollView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+import {storeRouteThunk} from '../store/utilities/directionRoute';
+import { connect } from "react-redux";
 import { Actions } from 'react-native-router-flux';
 
 class Directions extends React.Component {
@@ -67,6 +69,7 @@ class Directions extends React.Component {
   }
 
   goToDirections = async(route) => {
+    this.props.storeRoute(route);
 		Actions.directionsMap({path: `${route}`})
 	}
 
@@ -197,4 +200,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   }
 });
-export default Directions
+
+
+const mapState = (state) => {
+	return {
+		routes: state.routes
+	}
+}
+
+const mapDispatch = (dispatch) => {
+	return {
+    storeRoute: (route) => dispatch(storeRouteThunk(route))
+	}
+}
+
+export default connect(mapState, mapDispatch)(Directions);
