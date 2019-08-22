@@ -13,7 +13,7 @@ import TwitterFeed from '../pages/twitterFeed';
 import DirectionsMap from './directionsMap';
 import Directions from '../pages/direction';
 
-const Routes = () => (
+const Routes = (props) => (
    <Router cardStyle={{ backgroundColor: 'white' }}>
       <ScrollView>
          <Scene type="reset" key="landing" component={Landing} title="Home" initial={true} />
@@ -27,7 +27,7 @@ const Routes = () => (
          <Scene key="twitterFeed" component={TwitterFeed} title="@NYCT Subway" />
          <Scene key="directions" component={Directions} title="Directions" />
          <Scene type="reset" key="twitterFeed" component={TwitterFeed} title="@NYCT Subway" />
-         <Scene key="directionsMap" component={DirectionsMap} title="Directions" />
+         <Scene key="directionsMap" component={DirectionsMap} title="Directions" path={props.path} />
       </ScrollView>
    </Router>
 )

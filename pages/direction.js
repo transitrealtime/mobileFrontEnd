@@ -1,9 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input';
-import axios from 'axios';
 import { Card, CardItem, Container, Button, Content, Right, Icon, Body } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios';
+import {storeRouteThunk} from '../store/utilities/directionRoute';
+import { connect } from "react-redux";
+import { Actions } from 'react-native-router-flux';
 
 class Directions extends React.Component {
   _isMounted = false;
@@ -64,6 +68,12 @@ class Directions extends React.Component {
     return stations.filter(item => item.search(regex) >= 0);
   }
 
+  goToDirections = async(route) => {
+    this.props.storeRoute(route);
+		Actions.directionsMap({path: `${route}`})
+	}
+
+
   query = async () => {
     try {
       let currLoc = await this.state.currLoc;
@@ -73,7 +83,7 @@ class Directions extends React.Component {
       data.forEach(routes => {
         let path = [];
         let pathView = [];
-        {
+        { 
           routes.steps.map((step, i) => {
             if (step.transitType === "WALKING") {
               pathView.push(<Icon key={i} name="md-walk" />);
@@ -112,6 +122,7 @@ class Directions extends React.Component {
               <Text>Estimated Arrival:{routes.arrival}</Text>
             </CardItem>
             {path}
+            <MaterialCommunityIcons style={{textAlign:'right',fontSize:35}} onPress={()=>this.goToDirections(routes)} name="google-maps" />
           </Card>
         );
       })
@@ -199,4 +210,18 @@ const styles = StyleSheet.create({
     alignItems : 'center'
   }
 });
-export default Directions
+
+
+const mapState = (state) => {
+	return {
+		routes: state.routes
+	}
+}
+
+const mapDispatch = (dispatch) => {
+	return {
+    storeRoute: (route) => dispatch(storeRouteThunk(route))
+	}
+}
+
+export default connect(mapState, mapDispatch)(Directions);
