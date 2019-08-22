@@ -30,7 +30,7 @@ class directionsMap extends React.Component {
 							coordinates={step.polyline}
 							strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
 							strokeWidth={6}
-							lineDashPattern={[5]}
+							lineDashPattern={[10]}
 							lineCap="round"
 						/>)
 				}
