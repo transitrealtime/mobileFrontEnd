@@ -6,7 +6,17 @@ How to use
 
 Download Expo Client on mobile device.
 
-Clone repository and run ```npm install expo-cli --global```
+Download Expo cli tools on IDE 
+
+```npm install expo-cli --global```
+
+Clone repository and install all packages 
+
+```npm install```
+
+Host the application on localHost
+
+```Expo start```
 
 Scan the QR code present in the web terminal
 
