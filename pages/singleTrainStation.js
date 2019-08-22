@@ -4,6 +4,7 @@ import { Card, CardItem, Header, Container, Title, Icon, Body, Right, Left } fro
 import { Actions } from 'react-native-router-flux'
 import axios from 'axios';
 import trainColors from '../components/trainColors'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 class singleTrainStation extends React.Component {
@@ -167,17 +168,20 @@ class singleTrainStation extends React.Component {
 			<Container>
 				<Header style={{ backgroundColor: 'white' }}>
 					<Left>
-						<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} onPress={() => { Actions.pop() }} hitSlop={{top: 50, bottom: 50, left: 50, right: 80}}>
-						</Icon>
+						<TouchableOpacity onPress={() => { Actions.pop() }} >
+							<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} >
+							</Icon>
+						</TouchableOpacity>
 					</Left>
 					<Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body>
 					<Right>
+						<TouchableOpacity onPress={() => this.fetchFavoriteTrains()}>
 						<Icon
-							name={this.state.heart}
-							style={this.state.heart === "ios-heart-empty" ? { fontSize: 35 } : { fontSize: 35, color: 'red' }}
-							hitSlop={{top: 40, bottom: 40, left: 40, right: 40}}
-							onPress={() => this.fetchFavoriteTrains()}>
-						</Icon>
+								name={this.state.heart}
+								style={this.state.heart === "ios-heart-empty" ? { fontSize: 35 } : { fontSize: 35, color: 'red' }}
+							>
+							</Icon>
+						</TouchableOpacity>
 					</Right>
 				</Header>
 				<ScrollView refreshControl={
