@@ -1,8 +1,7 @@
 # Transit Real time
 
 
-##
-How to use
+##How to use
 
 Download Expo Client on mobile device.
 
