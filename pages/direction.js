@@ -5,6 +5,7 @@ import { Card, CardItem, Container, Button, Content, Right, Icon, Body } from 'n
 import { ScrollView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+import SearchBar from 'react-native-searchbar';
 import {storeRouteThunk} from '../store/utilities/directionRoute';
 import { connect } from "react-redux";
 import { Actions } from 'react-native-router-flux';
@@ -143,7 +144,16 @@ class Directions extends React.Component {
     const data = this.filterData(destination);
     return (
       <Container style={{ display: 'flex' }}>
-        <Card>
+        <SearchBar
+          showOnLoad
+          hideBack
+          textColor='black'
+          data={data.length === 1 ? [] : data}
+          handleChangeText={text=>this.setState({destination:text})}
+          onSubmitEditing={this.query}
+        >
+        </SearchBar>
+        {/* <Card>
           <CardItem>
             <Autocomplete
               containerStyle={styles.autocompleteContainer}
@@ -167,10 +177,10 @@ class Directions extends React.Component {
               </Right>
             </CardItem>
           </TouchableOpacity>
-        </Card>
+        </Card> */}
         <ScrollView>
           {this.state.route.length > 0 ?
-            (<View>{this.state.route}</View>) : (<CardItem><Text>Nothing</Text></CardItem>)}
+            (<View style={{marginTop:70}}>{this.state.route}</View>) : (<CardItem></CardItem>)}
         </ScrollView>
       </Container>
     );
