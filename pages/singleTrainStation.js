@@ -72,7 +72,7 @@ class singleTrainStation extends React.Component {
 	async componentDidMount() {
 		this._isMounted = true;
 		this.fetchTrainTimes();
-		this.isFavorite();
+		await this.isFavorite();
 	}
 
 	componentWillUnmount() {
