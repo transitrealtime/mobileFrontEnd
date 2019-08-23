@@ -43,12 +43,6 @@ const allMaps = () => {
 				</Button>
 				<Text style={{ marginLeft: 10 }}>Where Am I</Text>
 			</View>
-			<View style={styles.view}>
-				<Button onPress={goToDirectionsMap}>
-					<Entypo style={styles.icon} name="location" />
-				</Button>
-				<Text style={{ marginLeft: 10 }}>Directions</Text>
-			</View>
 		</Container>
 
 	)

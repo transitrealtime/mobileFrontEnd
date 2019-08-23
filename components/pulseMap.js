@@ -46,7 +46,7 @@ export default class Pulse extends React.Component {
 					markers: pins
 				})
 			}
-		} catch (err) {
+		} catch(err){
 			console.log(err)
 		}
 
