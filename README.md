@@ -21,6 +21,13 @@ Scan the QR code present in the web terminal
 ## API 
 [MTA-Real-Time](https://github.com/transitrealtime/backEnd)
 
+## Technology:
+- React Native
+- Redux
+- MongoDB
+- Express
+- NodeJs
+
 ## Visuals
 <img src="/assets/Image%20from%20iOS.png" height="600" width="270" ><img src="/assets/Image%20from%20iOS%20(2).png" height="600" width="270">
 <img src="/assets/Image%20from%20iOS%20(3).png" height="600" width="270">
