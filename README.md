@@ -19,4 +19,5 @@ Host the application on localHost
 
 Scan the QR code present in the web terminal
 
+![alt text](/assets/Image from iOS.png)
 
