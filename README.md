@@ -19,5 +19,7 @@ Host the application on localHost
 
 Scan the QR code present in the web terminal
 
-![alt text](https://github.com/transitrealtime/mobileFrontEnd/blob/master/assets/Image%20from%20iOS.png?raw=true)
-
+<img src="/assets/Image%20from%20iOS.png" height="600" width="270">
+<img src="/assets/Image%20from%20iOS%20(2).png" height="600" width="270">
+<img src="/assets/Image%20from%20iOS%20(3).png" height="600" width="270">
+<img src="/assets/Image%20from%20iOS%20(4).png" height="600" width="270">
