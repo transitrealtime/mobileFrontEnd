@@ -36,20 +36,20 @@ export default class App extends React.Component {
               <Button onPress={async () => { await this.setState({ activePage: 1 }); this.goHome() }}>
                 <Icon style={this.state.activePage === 1 ? { color: '#1E90FF' } : {}} name="subway" />
               </Button>
-              <Button onPress={async () => { await this.setState({ activePage: 2 }); this.goMap() }}>
-                <Icon style={this.state.activePage === 2 ? { color: '#1E90FF' } : {}} active name="map" />
+              <Button onPress={async () => { await this.setState({ activePage: 2 }); this.goDirections() }}>
+                <Icon style={this.state.activePage === 2 ? {color: '#1E90FF' } : {}} name="ios-walk" />
               </Button>
-              <Button onPress={async () => { await this.setState({ activePage: 3 }); this.goTwitter() }}>
-                <Icon style={this.state.activePage === 3 ? { color: '#1E90FF' } : {}} name="logo-twitter" />
+              <Button onPress={async () => { await this.setState({ activePage: 3 }); this.goMap() }}>
+                <Icon style={this.state.activePage === 3 ? { color: '#1E90FF' } : {}} active name="map" />
               </Button>
-              <Button onPress={this.goDirections}>
-                <Icon name="logo-twitter" />
+              <Button onPress={async () => { await this.setState({ activePage: 4 }); this.goTwitter() }}>
+                <Icon style={this.state.activePage === 4 ? { color: '#1E90FF' } : {}} name="logo-twitter" />
               </Button>
+
             </FooterTab>
           </Footer>
         </Container>
       </Provider >
     );
   };
-
 }

@@ -22,7 +22,7 @@ class directionsMap extends React.Component {
 			await this.props.getRoute()
 			let connectors = [];
 			let pins = [];
-			let i =0;
+			let i = 0;
 			this.props.routes.steps.forEach((step, i) => {
 				if (step.transitType === "WALKING") {
 					connectors.push(
@@ -30,7 +30,7 @@ class directionsMap extends React.Component {
 							coordinates={step.polyline}
 							strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
 							strokeWidth={6}
-							lineDashPattern={[10]}
+							lineDashPattern={[10, 10]}
 							lineCap="round"
 						/>)
 				}
@@ -95,6 +95,8 @@ class directionsMap extends React.Component {
 						latitudeDelta: 0,
 						longitudeDelta: 0.08983111749910169,
 					}}
+					showsUserLocation={true}
+					showsMyLocationButton={true}
 					showsCompass={false}
 					loadingEnabled={true}>
 					{this.state.connectors}

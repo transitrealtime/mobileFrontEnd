@@ -34,7 +34,7 @@ export default class App extends React.Component {
 						}}
 						title={element[1]["Stop Name"]}
 						description={`${element[1]["Daytime Routes"]}`}>
-						<MapView.Callout onPress={() => this.goToSingleStation(element[0])}>
+						<MapView.Callout onPress={() => this.goToSingleStation(element[0],element[1]["Stop Name"],element[1]["Daytime Routes"].toString()[0])}>
 							<Text>{element[1]["Stop Name"]}{"\n"}{`${element[1]["Daytime Routes"]}`}</Text>
 						</MapView.Callout>
 					</MapView.Marker>
@@ -54,9 +54,8 @@ export default class App extends React.Component {
 		this._isMounted = false;
 	}
 
-	goToSingleStation = async (stationId) => {
-		let stationName = await this.getStationName(stationId);
-		Actions.singleTrainStation({stationId: `${stationId}`, title: `${stationName}` })
+	goToSingleStation = async (stationId,stationName,train) => {
+		Actions.singleTrainStation({stationId: `${stationId}`, title: `${stationName}`, stationName : stationName, train : train })
 	}
 
 	getStationName = async (stationId) => {

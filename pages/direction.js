@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Autocomplete from 'react-native-autocomplete-input';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Card, CardItem, Container, Button, Content, Right, Icon, Body } from 'native-base'
 import { ScrollView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
-import {storeRouteThunk} from '../store/utilities/directionRoute';
+import SearchBar from 'react-native-searchbar';
+import { storeRouteThunk } from '../store/utilities/directionRoute';
 import { connect } from "react-redux";
 import { Actions } from 'react-native-router-flux';
 
@@ -17,7 +19,8 @@ class Directions extends React.Component {
       currLoc: [],
       stations: [],
       destination: "",
-      route: []
+      route: [],
+      showSearch: false
     }
   }
 
@@ -68,10 +71,10 @@ class Directions extends React.Component {
     return stations.filter(item => item.search(regex) >= 0);
   }
 
-  goToDirections = async(route) => {
+  goToDirections = async (route) => {
     this.props.storeRoute(route);
-		Actions.directionsMap({path: `${route}`})
-	}
+    Actions.directionsMap({ path: `${route}` })
+  }
 
 
   query = async () => {
@@ -83,18 +86,18 @@ class Directions extends React.Component {
       data.forEach(routes => {
         let path = [];
         let pathView = [];
-        { 
+        {
           routes.steps.map((step, i) => {
             if (step.transitType === "WALKING") {
-              pathView.push(<Icon key={i} name="md-walk" />);
-              pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
+              pathView.push(<Icon key={i} name="md-walk" style={{ fontSize: 20 }} />);
+              pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" style={{ fontSize: 20 }} />);
             }
             else {
               pathView.push(
-                <View key={i} style = {[styles.circle,{backgroundColor :step.trainInfo.trainColor}]}>
-                  <Text style={[{color: 'white', fontSize: 12 }]}>{step.trainInfo.train}</Text>
+                <View key={i} style={[styles.circle, { backgroundColor: step.trainInfo.trainColor }]}>
+                  <Text style={[{ color: 'white', fontSize: 12 }]}>{step.trainInfo.train}</Text>
                 </View>);
-              pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" />);
+              pathView.push(<Icon key={i + 1 * 100} name="ios-arrow-forward" style={{ fontSize: 20 }} />);
             }
             path.push
               (<CardItem key={i + 1 * 33} >
@@ -122,7 +125,7 @@ class Directions extends React.Component {
               <Text>Estimated Arrival:{routes.arrival}</Text>
             </CardItem>
             {path}
-            <MaterialCommunityIcons style={{textAlign:'right',fontSize:35}} onPress={()=>this.goToDirections(routes)} name="google-maps" />
+            <MaterialCommunityIcons style={{ textAlign: 'right', fontSize: 35 }} onPress={() => this.goToDirections(routes)} name="google-maps" />
           </Card>
         );
       })
@@ -142,36 +145,46 @@ class Directions extends React.Component {
     const { destination } = this.state;
     const data = this.filterData(destination);
     return (
-      <Container style={{ display: 'flex' }}>
-        <Card>
-          <CardItem>
-            <Autocomplete
-              containerStyle={styles.autocompleteContainer}
-              data={data.length === 1 ? [] : data}
-              defaultValue={destination}
-              onChangeText={text => this.setState({ destination: text })}
-              placeholder="Destination"
-              renderItem={({ item, i }) => (
-                <TouchableOpacity onPress={() => this.setState({ destination: item })}>
-                  <Text key={i} >{item}</Text>
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </CardItem>
-          <TouchableOpacity onPress={this.query}>
-            <CardItem>
-              <Text>Search</Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
-          </TouchableOpacity>
-        </Card>
-        <ScrollView>
-          {this.state.route.length > 0 ?
-            (<View>{this.state.route}</View>) : (<CardItem><Text>Nothing</Text></CardItem>)}
-        </ScrollView>
+      <Container>
+        {this.state.showSearch ? (
+          <SearchBar
+            showOnLoad
+            textColor='black'
+            data={data.length === 1 ? [] : data}
+            handleChangeText={text => this.setState({ destination: text })}
+            onSubmitEditing={this.query}
+            onBack={() => this.setState({ showSearch: !this.state.showSearch })}
+          >
+          </SearchBar>
+        ) :
+          (<TouchableOpacity onPress={() => this.setState({ showSearch: !this.state.showSearch })} style={{
+            alignSelf: 'flex-end', display: 'flex', justifyContent: 'center', alignItems: 'center', shadowColor: "#000000",
+            shadowOpacity: 0.4, shadowRadius: 2,
+            shadowOffset: {
+              height: 1,
+              width: 1
+            }, backgroundColor: 'white', zIndex: 1, margin: 10, marginTop: 20, width: 55, height: 55, borderRadius: 30
+          }}><Icon
+              style={{ zIndex: 1, color: '#6A6A6A', fontSize: 27.5 }} name="md-search" /></TouchableOpacity>)
+        }
+        <MapView provider={PROVIDER_GOOGLE}
+          style={[styles.map, { flex: 1, marginBottom: this.state.marginBottom }]}
+          initialRegion={{
+            latitude: 40.7549,
+            longitude: -73.9840,
+            latitudeDelta: 0,
+            longitudeDelta: 0.08983111749910169,
+          }}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          showsCompass={false}
+          loadingEnabled={true}>
+        </MapView>
+        {this.state.showSearch ?
+          (<ScrollView>
+            {this.state.route.length > 0 ?
+              (<View style={{ marginTop: 70 }}>{this.state.route}</View>) : (<View></View>)}
+          </ScrollView>) : (<View></View>)}
       </Container>
     );
   }
@@ -192,36 +205,39 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap'
   },
-  // circle: {
-  //   width: 20,
-  //   height: 20,
-  //   borderRadius: 10,
-  //   borderWidth : .5,
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // }
-  circle : {
-    borderRadius : 10, 
-    width :20, 
-    height : 20,
-    justifyContent : 'center',
-    alignItems : 'center'
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
+  },
+  search: {
+    top: 20,
+    left: 20,
+    bottom: 20,
+    right: 20
+  },
+  circle: {
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
 
 const mapState = (state) => {
-	return {
-		routes: state.routes
-	}
+  return {
+    routes: state.routes
+  }
 }
 
 const mapDispatch = (dispatch) => {
-	return {
+  return {
     storeRoute: (route) => dispatch(storeRouteThunk(route))
-	}
+  }
 }
 
 export default connect(mapState, mapDispatch)(Directions);

@@ -36,7 +36,7 @@ export default class Favorites extends React.Component {
     removeFavorite = async (decode) => {
         try {
             await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${decode}`)
-        } catch (error){
+        } catch (error) {
             console.log(error);
         }
         this.getFavorites();
@@ -47,12 +47,11 @@ export default class Favorites extends React.Component {
             let decoded = element.split(',');
             return (
                 <CardItem bordered button key={i} style={{ display: 'flex', justifyContent: 'space-between' }} onPress={() => this.goToSingleStation(decoded[0], decoded[1], decoded[2])}>
-                    <View style = {[styles.circle,{backgroundColor : trainColors[decoded[0]]}]}><Text style={{color:'white',fontSize:15}}>{decoded[0]}</Text></View>
+                    <View style={[styles.circle, { backgroundColor: trainColors[decoded[0]] }]}><Text style={{ color: 'white', fontSize: 15 }}>{decoded[0]}</Text></View>
                     <Text>{decoded[2]}</Text>
                     <Right>
-                        <Icon onPress={() => { this.removeFavorite(element) }} name="ios-heart" style={{ color: 'red'}} hitSlop={{top: 60, bottom: 60, left: 100, right: 50}}>
+                        <Icon onPress={() => { this.removeFavorite(element) }} name="ios-heart" style={{ color: 'red' }} hitSlop={{ top: 70, bottom: 70, left: 110, right: 70 }}>
                         </Icon>
-                        
                     </Right>
                 </CardItem>)
         }) : <CardItem bordered><Text>No Favorites</Text></CardItem>
@@ -79,7 +78,7 @@ export default class Favorites extends React.Component {
         return <View style={{ alignSelf: 'stretch', marginBottom: 20 }}>
             <Card>
                 <CardItem header button onPress={() => { this.display() }} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Text style={{fontSize: 20 }}>Favorites</Text>
+                    <Text style={{ fontSize: 20 }}>Favorites</Text>
                     <Right>
                         <Icon name="arrow-forward" />
                     </Right>
@@ -91,13 +90,13 @@ export default class Favorites extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    circle : {
-        width :20,
-        height :20,
-        borderRadius : 10,
+    circle: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
         display: 'flex',
-		flexDirection: 'row',
-		justifyContent: "center",
-		alignItems: "center",
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center",
     }
 })
