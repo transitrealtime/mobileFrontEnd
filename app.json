@@ -25,8 +25,24 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.andyzheng.transitrealtime"
+      "bundleIdentifier": "com.andyzheng.transitrealtime",
+      "publishBundlePath": "ios/transit-real-time/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/transit-real-time/Supporting/shell-app-manifest.json"
     },
-    "description": ""
-  }
+    "description": "",
+    "isDetached": true,
+    "detach": {
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.12.4-sdk34.0.0-ee3e7450-9ec2-4836-8c8c-335483e62917.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.12.2-sdk34.0.0-767c7d3b-87b6-4f80-a9af-92ce67e2a49d.tar.gz"
+    },
+    "scheme": "exp86b1f9204701480bb3f8e52d9190f76d",
+    "android": {
+      "package": "com.andyzheng.transitrealtime",
+      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
+      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Transit real Time",
+  "name": "transitrealtime"
 }
