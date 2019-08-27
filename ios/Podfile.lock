@@ -48,11 +48,53 @@ PODS:
     - GoogleMaps
   - Google-Maps-iOS-Utils/QuadTree (2.1.0):
     - GoogleMaps
+  - GoogleAppMeasurement (5.4.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
   - GoogleMaps (2.5.0):
     - GoogleMaps/Maps (= 2.5.0)
   - GoogleMaps/Base (2.5.0)
   - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
+  - GoogleUtilities (5.3.7):
+    - GoogleUtilities/AppDelegateSwizzler (= 5.3.7)
+    - GoogleUtilities/Environment (= 5.3.7)
+    - GoogleUtilities/ISASwizzler (= 5.3.7)
+    - GoogleUtilities/Logger (= 5.3.7)
+    - GoogleUtilities/MethodSwizzler (= 5.3.7)
+    - GoogleUtilities/Network (= 5.3.7)
+    - "GoogleUtilities/NSData+zlib (= 5.3.7)"
+    - GoogleUtilities/Reachability (= 5.3.7)
+    - GoogleUtilities/SwizzlerTestHelpers (= 5.3.7)
+    - GoogleUtilities/UserDefaults (= 5.3.7)
+  - GoogleUtilities/AppDelegateSwizzler (5.3.7):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.3.7)
+  - GoogleUtilities/ISASwizzler (5.3.7)
+  - GoogleUtilities/Logger (5.3.7):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.3.7):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.3.7):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.3.7)"
+  - GoogleUtilities/Reachability (5.3.7):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/SwizzlerTestHelpers (5.3.7)
+  - GoogleUtilities/UserDefaults (5.3.7):
+    - GoogleUtilities/Logger
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
   - React (0.59.10):
     - React/Core (= 0.59.10)
   - react-native-google-maps (0.24.2):
@@ -149,7 +191,10 @@ DEPENDENCIES:
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Google-Maps-iOS-Utils (= 2.1.0)
+  - GoogleAppMeasurement (= 5.4)
   - GoogleMaps
+  - GoogleUtilities (= 5.3.7)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - React/Core (from `../node_modules/react-native`)
@@ -186,7 +231,10 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
     - Google-Maps-iOS-Utils
+    - GoogleAppMeasurement
     - GoogleMaps
+    - GoogleUtilities
+    - nanopb
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -290,7 +338,10 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-google-maps: 568cb03d0eae7fef93626f65d05be55642404ed4
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
@@ -310,6 +361,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 3962594bfee05f30eab5694814cfd8e92dd670a6
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: ac9fb5234f21354fd8c6ed2ce5a541da5e1889b1
+PODFILE CHECKSUM: b1af993927259cfacb5bb2024a5eb1ad6e53e8de
 
 COCOAPODS: 1.7.5

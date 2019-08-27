@@ -28,9 +28,15 @@ target 'transitrealtime' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
   pod 'RNReanimated', :podspec => '../node_modules/react-native-reanimated/RNReanimated.podspec'
+
   pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
+  pod 'Google-Maps-iOS-Utils', '2.1.0'
+  pod 'GoogleUtilities', '5.3.7'
+  pod 'GoogleAppMeasurement', '5.4'
+  
   pod 'react-native-maps', path: '../node_modules/react-native-maps'
   pod 'react-native-google-maps', path: '../node_modules/react-native-maps'  # If you need GoogleMaps support on iOS
+
   use_unimodules!
 
 end

@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		8EE9B258747D05C165C30237 /* libPods-transitrealtime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DD0A4BAFAE114B9CF0FD54 /* libPods-transitrealtime.a */; };
+		A14A16D6231579F2003AC7CE /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A14A16D8231579F2003AC7CE /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = transitrealtime/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		429F68A6F2E5B6E96D851A48 /* Pods-transitrealtime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-transitrealtime.debug.xcconfig"; path = "Target Support Files/Pods-transitrealtime/Pods-transitrealtime.debug.xcconfig"; sourceTree = "<group>"; };
+		A14A16D9231579F5003AC7CE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/logo.png; sourceTree = "<group>"; };
 		E0CA11FCE5CC8D7E0378F27D /* Pods-transitrealtime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-transitrealtime.release.xcconfig"; path = "Target Support Files/Pods-transitrealtime/Pods-transitrealtime.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -49,6 +51,7 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				A14A16D8231579F2003AC7CE /* logo.png */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -169,6 +172,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				A14A16D6231579F2003AC7CE /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +276,15 @@
 			path = transitrealtime;
 			sourceTree = "<group>";
 		};
+		A14A16D8231579F2003AC7CE /* logo.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A14A16D9231579F5003AC7CE /* en */,
+			);
+			name = logo.png;
+			path = ../../../..;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -290,7 +303,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andyzheng.transitrealtime;
 				PRODUCT_NAME = transitrealtime;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -310,7 +323,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andyzheng.transitrealtime;
 				PRODUCT_NAME = transitrealtime;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

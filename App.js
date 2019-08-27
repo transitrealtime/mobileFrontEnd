@@ -29,16 +29,16 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
+        <Container>
           <Routes></Routes>
           <Footer>
             <FooterTab>
               <Button onPress={async () => { await this.setState({ activePage: 1 }); this.goHome() }}>
                 <Icon style={this.state.activePage === 1 ? { color: '#1E90FF' } : {}} name="subway" />
               </Button>
-              <Button onPress={async () => { await this.setState({ activePage: 2 }); this.goDirections() }}>
+              {/* <Button onPress={async () => { await this.setState({ activePage: 2 }); this.goDirections() }}>
                 <Icon style={this.state.activePage === 2 ? {color: '#1E90FF' } : {}} name="ios-walk" />
-              </Button>
+              </Button> */}
               <Button onPress={async () => { await this.setState({ activePage: 3 }); this.goMap() }}>
                 <Icon style={this.state.activePage === 3 ? { color: '#1E90FF' } : {}} active name="map" />
               </Button>
