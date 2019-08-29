@@ -72,7 +72,7 @@ class singleTrainStation extends React.Component {
 	async componentDidMount() {
 		this._isMounted = true;
 		this.fetchTrainTimes();
-		await this.isFavorite();
+		// await this.isFavorite();
 	}
 
 	componentWillUnmount() {
@@ -166,15 +166,16 @@ class singleTrainStation extends React.Component {
 	render() {
 		return (
 			<Container>
-				<Header style={{ backgroundColor: 'white' }}>
-					<Left>
+				{/* <Header style={{ backgroundColor: 'white' }}> */}
+					{/* <Left>
 						<TouchableOpacity onPress={() => { Actions.pop() }} >
 							<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} >
 							</Icon>
 						</TouchableOpacity>
 					</Left>
-					<Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body>
-					<Right>
+					<Body><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body> */}
+					{/* <Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body> */}
+					{/* <Right>
 						<TouchableOpacity onPress={() => this.fetchFavoriteTrains()}>
 						<Icon
 								name={this.state.heart}
@@ -182,8 +183,8 @@ class singleTrainStation extends React.Component {
 							>
 							</Icon>
 						</TouchableOpacity>
-					</Right>
-				</Header>
+					</Right> */}
+				{/* </Header> */}
 				<ScrollView refreshControl={
 					<RefreshControl
 						refreshing={this.state.refreshing}

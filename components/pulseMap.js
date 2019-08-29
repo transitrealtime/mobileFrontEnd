@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text, Dimensions, StyleSheet, View } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import axios from 'axios';
 
 const trainColors = require('./trainColors')
@@ -73,16 +73,16 @@ export default class Pulse extends React.Component {
 	onMapReady = () => this.setState({ marginBottom: 0 })
 
 	render() {
-		return (
+		return ( //provider={PROVIDER_GOOGLE}
 			<View style={styles.container}>
-				<MapView provider={PROVIDER_GOOGLE}
+				<MapView 
 					onMapReady={this.onMapReady}
 					style={[styles.map, { flex: 1, marginBottom: this.state.marginBottom }]}
 					initialRegion={{
 						latitude: 40.7549,
 						longitude: -73.9840,
-						latitudeDelta: 0,
-						longitudeDelta: 0.08983111749910169,
+						latitudeDelta: 0.05,
+						longitudeDelta: 0.05
 					}}
 					showsCompass={false}
 					loadingEnabled={true}>

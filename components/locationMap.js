@@ -125,9 +125,9 @@ export default class App extends React.Component {
 		if (this.state.initialRegion.length > 0) {
 			console.log(initialRegion)
 		}
-		return (
+		return (//provider={PROVIDER_GOOGLE}
 			<View style={styles.container}>
-				<MapView provider={PROVIDER_GOOGLE}
+				<MapView 
 					onMapReady={this.onMapReady}
 					style={[styles.map, { flex: 1, marginBottom: this.state.marginBottom }]}
 					initialRegion={{

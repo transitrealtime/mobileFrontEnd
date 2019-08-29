@@ -27,19 +27,19 @@ const allMaps = () => {
 		<Container style={styles.container}>
 			<View style={styles.view}>
 				<Button onPress={goToAllPins}>
-					<FontAwesome5 style={styles.icon} name="map-pin" />
+					<FontAwesome5 style={[styles.icon]} name="map-pin" />
 				</Button>
 				<Text style={{ marginLeft: 10 }}>All Station</Text>
 			</View>
 			<View style={styles.view}>
 				<Button onPress={goToPulseMap}>
-					<Ionicons style={styles.icon} name="md-pulse" />
+					<Ionicons style={[styles.icon]} name="md-pulse" />
 				</Button>
 				<Text style={{ marginLeft: 10 }}>NYC Pulse</Text>
 			</View>
 			<View style={styles.view}>
 				<Button onPress={goToLocationMap}>
-					<Entypo style={styles.icon} name="location" />
+					<Entypo style={[styles.icon]} name="location" />
 				</Button>
 				<Text style={{ marginLeft: 10 }}>Where Am I</Text>
 			</View>
