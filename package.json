@@ -28,7 +28,6 @@
     "react-native-maps": "^0.24.0",
     "react-native-router-flux": "^4.0.6",
     "react-native-searchbar": "^1.16.0",
-    "react-native-sentry": "^0.43.2",
     "react-native-vector-icons": "^6.6.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",

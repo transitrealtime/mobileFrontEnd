@@ -1,7 +1,6 @@
 import React from 'react'
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet,View} from 'react-native';
 import TrainsView from '../components/trainView';
-import Favorites from '../components/favorites';
 
 
 class Home extends React.Component {

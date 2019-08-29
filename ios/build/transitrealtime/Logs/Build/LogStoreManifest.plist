@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>EB6B0F57-5693-45BF-B508-E25B33D167B0</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>EB6B0F57-5693-45BF-B508-E25B33D167B0.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>transitrealtime project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>transitrealtime</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building workspace transitrealtime with scheme transitrealtime and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>588741156.71403694</real>
+			<key>timeStoppedRecording</key>
+			<real>588741163.40046501</real>
+			<key>title</key>
+			<string>Building workspace transitrealtime with scheme transitrealtime and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>EB6B0F57-5693-45BF-B508-E25B33D167B0</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
