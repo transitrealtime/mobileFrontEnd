@@ -11,6 +11,5 @@ web-build/
 web-report/
 
 .DS_Store
-
 Pods/
 ios/build/*
