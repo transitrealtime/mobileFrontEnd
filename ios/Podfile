@@ -32,4 +32,6 @@ target 'transitrealtime' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   use_unimodules!
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
 end

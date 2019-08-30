@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet,View} from 'react-native';
+import Favorites from '../components/favorites'
 import TrainsView from '../components/trainView';
 
 
@@ -8,7 +9,7 @@ class Home extends React.Component {
         return (
             // <ScrollView>
                 <View style={styles.container}>
-                    {/* <Favorites></Favorites> */}
+                    <Favorites></Favorites>
                     <TrainsView></TrainsView>
                 </View>
             // </ScrollView>
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center'
     },
 })

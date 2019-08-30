@@ -4,6 +4,7 @@ import { Container, Footer, FooterTab, Button} from 'native-base';
 import  Icon  from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
 import { Provider } from "react-redux";
+import DeviceInfo from 'react-native-device-info'
 import store from './store';
 
 export default class App extends React.Component {
@@ -26,7 +27,7 @@ export default class App extends React.Component {
   goDirections = () => {
     Actions.directions()
   }
-
+  
   render() {
     return (
       <Provider store={store}>
@@ -36,7 +37,6 @@ export default class App extends React.Component {
             <FooterTab>
               <Button onPress={async () => { await this.setState({ activePage: 1 }); this.goHome() }}>
                 <Icon style={this.state.activePage === 1 ? { color: '#1E90FF', fontSize : 20} : {fontSize : 20}} name="ios-subway"/>
-                {/* <Ionicons style={this.state.activePage === 1 ? { color: '#1E90FF' } : {}} name="subway"></Ionicons> */}
               </Button>
               {/* <Button onPress={async () => { await this.setState({ activePage: 2 }); this.goDirections() }}>
                 <Icon style={this.state.activePage === 2 ? {color: '#1E90FF' } : {}} name="ios-walk" />

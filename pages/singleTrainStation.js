@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native
 import { Card, CardItem, Header, Container, Title, Icon, Body, Right, Left } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import axios from 'axios';
+import deviceInfo from 'react-native-device-info';
 import trainColors from '../components/trainColors'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -16,6 +17,7 @@ class singleTrainStation extends React.Component {
 			southBound: [],
 			refreshing: false,
 			heart: "ios-heart-empty",
+			deviceInfo : deviceInfo.getUniqueID()
 		}
 	}
 
@@ -72,7 +74,7 @@ class singleTrainStation extends React.Component {
 	async componentDidMount() {
 		this._isMounted = true;
 		this.fetchTrainTimes();
-		// await this.isFavorite();
+		await this.isFavorite();
 	}
 
 	componentWillUnmount() {
@@ -134,7 +136,7 @@ class singleTrainStation extends React.Component {
 	isFavorite = async () => {
 		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
 		try {
-			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
+			let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${this.state.deviceInfo}/stations`);
 			if (data.includes(string)) {
 				this.setState({
 					heart: 'ios-heart'
@@ -148,12 +150,11 @@ class singleTrainStation extends React.Component {
 
 	fetchFavoriteTrains = async () => {
 		let string = `${this.props.train},${this.props.stationId},${this.props.stationName}`
-		console.log(string)
 		try {
 			if (this.state.heart === "ios-heart-empty") {
-				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
+				await axios.post(`https://mta-real-time.herokuapp.com/favorite/${this.state.deviceInfo}/${string}`)
 			} else {
-				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${string}`)
+				await axios.put(`https://mta-real-time.herokuapp.com/favorite/${this.state.deviceInfo}/${string}`)
 			}
 			this.setState({
 				heart: this.state.heart === "ios-heart-empty" ? "ios-heart" : "ios-heart-empty"
@@ -166,16 +167,16 @@ class singleTrainStation extends React.Component {
 	render() {
 		return (
 			<Container>
-				{/* <Header style={{ backgroundColor: 'white' }}> */}
-					{/* <Left>
+				<Header style={{ backgroundColor: 'white' }}>
+					<Left>
 						<TouchableOpacity onPress={() => { Actions.pop() }} >
 							<Icon name="arrow-back" style={{ marginLeft: 5, fontSize: 35, color: '#1e90ff' }} >
 							</Icon>
 						</TouchableOpacity>
 					</Left>
-					<Body><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body> */}
-					{/* <Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body> */}
-					{/* <Right>
+					{/* <Body><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body> */}
+					<Body style={{ flex: 3 }}><Text style={{ fontSize: 17.5, fontWeight: "600" }}>{this.props.title}</Text></Body>
+					<Right>
 						<TouchableOpacity onPress={() => this.fetchFavoriteTrains()}>
 						<Icon
 								name={this.state.heart}
@@ -183,8 +184,8 @@ class singleTrainStation extends React.Component {
 							>
 							</Icon>
 						</TouchableOpacity>
-					</Right> */}
-				{/* </Header> */}
+					</Right>
+				</Header>
 				<ScrollView refreshControl={
 					<RefreshControl
 						refreshing={this.state.refreshing}
