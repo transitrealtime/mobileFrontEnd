@@ -89,6 +89,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNDeviceInfo (2.3.2):
+    - React
   - RNGestureHandler (1.3.0):
     - React
   - RNReanimated (1.2.0):
@@ -141,6 +143,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler/RNGestureHandler.podspec`)
   - RNReanimated (from `../node_modules/react-native-reanimated/RNReanimated.podspec`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -203,6 +206,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
     :podspec: "../node_modules/react-native-gesture-handler/RNGestureHandler.podspec"
   RNReanimated:
@@ -265,6 +270,7 @@ SPEC CHECKSUMS:
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   React: 36d0768f9e93be2473b37e7fa64f92c1d5341eef
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
+  RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
@@ -282,6 +288,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 3962594bfee05f30eab5694814cfd8e92dd670a6
   yoga: 684513b14b03201579ba3cee20218c9d1298b0cc
 
-PODFILE CHECKSUM: b0a665756ac136dac4bd90ea10a55946fdc9b21f
+PODFILE CHECKSUM: bfea004eabb7a507b9c3c4c998e3085d7be94781
 
 COCOAPODS: 1.7.5

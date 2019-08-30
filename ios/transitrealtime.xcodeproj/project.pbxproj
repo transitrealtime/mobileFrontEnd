@@ -40,6 +40,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = transitrealtime/main.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		69BBB50FA5078D61A1FC1746 /* Pods-transitrealtime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-transitrealtime.debug.xcconfig"; path = "Target Support Files/Pods-transitrealtime/Pods-transitrealtime.debug.xcconfig"; sourceTree = "<group>"; };
+		A146F6A82318A94C00FCAAC9 /* transitrealtime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = transitrealtime.entitlements; path = transitrealtime/transitrealtime.entitlements; sourceTree = "<group>"; };
 		A1EB30712317C8A000DE610E /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		A1EB30722317C8A000DE610E /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
 		A1EB30732317C8A000DE610E /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		13B07FAE1A68108700A75B9A /* transitrealtime */ = {
 			isa = PBXGroup;
 			children = (
+				A146F6A82318A94C00FCAAC9 /* transitrealtime.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -195,6 +197,11 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 54LUKQTUFF;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -203,7 +210,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);

@@ -13,3 +13,5 @@ web-report/
 .DS_Store
 
 Pods/
+
+build/

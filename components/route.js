@@ -19,8 +19,8 @@ const Routes = (props) => (
          <Scene type="reset" key="landing" component={Landing} title="Home" initial={true} />
          <Scene key="train" component={Train} title="Trains" />
          <Scene key="singleTrain" component={Single} title="Single" />
-         {/* <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" hideNavBar={true} /> */}
-         <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" />
+         <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" hideNavBar={true} />
+         {/* <Scene key="singleTrainStation" component={SingleTrainStation} title="Station" /> */}
 
          <Scene type="reset" key="allMaps" component={AllMaps} title="All Maps" />
          <Scene key="pinMap" component={PinMap} title="All Stations" />

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import trainColors from './trainColors'
+import DeviceInfo from 'react-native-device-info'
 
 export default class Favorites extends React.Component {
     _isMounted = false;
@@ -11,13 +12,14 @@ export default class Favorites extends React.Component {
         super();
         this.state = {
             favorites: [],
-            hide: true
+            hide: true,
+            deviceId : DeviceInfo.getUniqueID()
         }
     }
 
     getFavorites = async () => {
         try {
-            let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/stations`);
+            let { data } = await axios.get(`https://mta-real-time.herokuapp.com/favorite/${this.state.deviceId}/stations`);
             if (this._isMounted) {
                 this.setState({
                     favorites: data
@@ -35,7 +37,7 @@ export default class Favorites extends React.Component {
 
     removeFavorite = async (decode) => {
         try {
-            await axios.put(`https://mta-real-time.herokuapp.com/favorite/${Expo.Constants.installationId}/${decode}`)
+            await axios.put(`https://mta-real-time.herokuapp.com/favorite/${this.state.deviceId}/${decode}`)
         } catch (error) {
             console.log(error);
         }
