@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet,View} from 'react-native';
+import { StyleSheet,View, ScrollView} from 'react-native';
 import Favorites from '../components/favorites'
 import TrainsView from '../components/trainView';
 
@@ -7,12 +7,12 @@ import TrainsView from '../components/trainView';
 class Home extends React.Component {
     render() {
         return (
-            // <ScrollView>
+            <ScrollView>
                 <View style={styles.container}>
                     <Favorites></Favorites>
                     <TrainsView></TrainsView>
                 </View>
-            // </ScrollView>
+            </ScrollView>
         )
     }
 }

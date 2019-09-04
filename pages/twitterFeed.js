@@ -16,7 +16,7 @@ export default class Feed extends React.Component {
 
     async componentDidMount() {
         this._isMounted = true;
-        this.getTwitterFeed();
+        this.updateTwitterFeed();
     }
 
     componentWillUnmount() {

@@ -133,8 +133,8 @@ export default class App extends React.Component {
 					initialRegion={{
 						latitude: 40.7549,
 						longitude: -73.9840,
-						latitudeDelta: 0,
-						longitudeDelta: 0.08983111749910169,
+						latitudeDelta: .08,
+						longitudeDelta: .08,
 					}}
 					showsUserLocation={true}
 					showsMyLocationButton={true}

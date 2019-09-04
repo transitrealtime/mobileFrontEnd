@@ -84,8 +84,8 @@ class singleTrainStation extends React.Component {
 
 	allBoundTime = () => {
 		let sideIndex = -1;
-		let empty = true;
 		let AllTrains = [this.state.northBound, this.state.southBound].map((side) => {
+			let empty = true;
 			let display;
 			if (side.length !== 0) {
 				display = side.map((train, i) => {
