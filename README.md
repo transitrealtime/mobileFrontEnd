@@ -1,5 +1,8 @@
 # Transit Real time
 
+## Version 1.0 is Available on iOS AppStore 
+
+https://apps.apple.com/app/id1477994713
 
 ## How to use
 
@@ -18,6 +21,7 @@ Host the application on localHost
 ```Expo start```
 
 Scan the QR code present in the web terminal
+
 ## API 
 [MTA-Real-Time](https://github.com/transitrealtime/backEnd)
 
